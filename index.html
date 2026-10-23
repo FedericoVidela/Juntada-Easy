@@ -1,456 +1,3052 @@
 <!doctype html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#17251d">
-<title>Juntada 2.0 — Organizá mejor, desperdiciá menos</title>
-<style>
-:root{--ink:#19251d;--ink2:#34443a;--muted:#738077;--paper:#f7f7f0;--white:#fff;--line:#e3e8df;--green:#c9f36a;--green2:#a8d94d;--soft:#edf5df;--orange:#ed9d69;--red:#c95d49;--shadow:0 12px 35px rgba(25,37,29,.08)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(128,177,54,.4);outline-offset:2px}.topbar{height:74px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100vw - 1180px)/2));gap:20px}.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:-1px;font-size:23px}.brand-mark{height:39px;width:39px;border-radius:13px;background:var(--green);color:var(--ink);display:grid;place-items:center;font-size:22px}.brand small{font-size:10px;letter-spacing:1.5px;color:#b3c1b5;display:block;font-weight:650;margin-top:-3px}.topright{display:flex;align-items:center;gap:9px;color:#cfdbce;font-size:12px}.statusdot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block}.wrap{max-width:1180px;margin:auto;padding:30px 22px 48px}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;margin-bottom:25px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-weight:800;color:#637b48;font-size:10px;margin-bottom:8px}.hero h1{font-size:clamp(28px,4vw,42px);line-height:1.04;letter-spacing:-1.7px;margin:0;max-width:690px}.hero h1 span{background:var(--green);padding:0 7px;border-radius:7px;display:inline-block;transform:rotate(-1deg)}.hero p{margin:12px 0 0;color:var(--muted);max-width:620px;font-size:14px}.local-note{font-size:11px;color:var(--muted);display:flex;gap:7px;align-items:center;background:#fff;border:1px solid var(--line);padding:10px 12px;border-radius:12px;white-space:nowrap}.columns{display:grid;grid-template-columns:345px minmax(0,1fr);gap:22px;align-items:start}.panel{background:var(--white);border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:19px 21px 14px;border-bottom:1px solid #eef0e9;display:flex;align-items:flex-start;gap:12px}.step{width:30px;height:30px;background:var(--soft);border-radius:10px;display:grid;place-items:center;color:#536e31;font-weight:850;font-size:12px;flex-shrink:0}.panel-head h2{font-size:16px;margin:1px 0 3px;letter-spacing:-.3px}.panel-head p{font-size:12px;color:var(--muted);margin:0}.formbody{padding:20px 21px 22px}.field{margin-bottom:17px}.field:last-child{margin-bottom:0}.field label{font-size:12px;font-weight:750;display:flex;justify-content:space-between;gap:8px;margin-bottom:7px}.field .help{color:var(--muted);font-weight:450;font-size:10px}.control{width:100%;min-height:43px;border:1px solid #dfe5db;border-radius:11px;background:#fbfcf8;padding:10px 12px;color:var(--ink);outline:none}.control:focus{border-color:#8ebc45}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:11px}.segments{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.segments label{display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;font-weight:700;min-height:43px;border:1px solid var(--line);border-radius:10px;padding:7px 3px;cursor:pointer;color:var(--muted);background:#fbfcf8}.segments input{position:absolute;opacity:0;width:1px;height:1px}.segments label:has(input:checked){background:var(--soft);border-color:#9fc65d;color:#354825;box-shadow:inset 0 0 0 1px #c4e28e}.counterline{display:flex;justify-content:space-between;align-items:center;margin-top:5px;color:var(--muted);font-size:11px}.primary{border:0;background:var(--ink);color:white;border-radius:12px;padding:13px 16px;font-weight:800;font-size:13px;transition:.15s}.primary:hover{background:#2b4434;transform:translateY(-1px)}.primary span{color:var(--green);font-size:16px;margin-left:5px}.full{width:100%;margin-top:20px}.subtle-btn{background:#f2f6ec;color:#344d25;border:1px solid #e1ead4;padding:9px 12px;border-radius:10px;font-weight:750;font-size:11px}.subtle-btn:hover{background:#e6f2d6}.rightcol{min-width:0}.summary{background:var(--ink);border-radius:19px;color:white;padding:21px 22px 19px;margin-bottom:17px;position:relative;overflow:hidden}.summary:after{content:"";position:absolute;width:180px;height:180px;border:28px solid rgba(201,243,106,.07);border-radius:50%;right:-70px;top:-75px;pointer-events:none}.sumtop{display:flex;justify-content:space-between;gap:15px;position:relative;z-index:1}.sumlabel{font-size:10px;text-transform:uppercase;letter-spacing:1.7px;color:#bdc9bd;font-weight:800}.summary h2{font-size:23px;margin:5px 0 4px;letter-spacing:-.8px}.sumdesc{font-size:12px;color:#b4c1b6}.tag{background:#2c3a2e;color:var(--green);border:1px solid #43573b;border-radius:30px;font-size:10px;font-weight:800;white-space:nowrap;height:max-content;padding:7px 10px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:19px;position:relative;z-index:1}.stat{border:1px solid #38463a;background:#202e23;border-radius:12px;padding:11px}.stat b{font-size:19px;display:block;letter-spacing:-.5px}.stat span{font-size:10px;color:#bac8ba}.budgetline{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:11px;color:#b8c5b9;position:relative;z-index:1}.budgetbar{height:6px;border-radius:20px;background:#35463a;flex:1;overflow:hidden}.budgetbar span{display:block;height:100%;width:0;background:var(--green);border-radius:20px;transition:width .25s}.listpanel{overflow:visible}.list-head{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line)}.list-title{font-weight:850;font-size:16px;letter-spacing:-.3px}.list-meta{font-size:11px;color:var(--muted);margin-top:3px}.listactions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.progress-wrap{padding:13px 20px 0}.progress-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:6px}.progress{height:5px;background:#edf0e8;border-radius:20px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:#8fbd47;transition:width .2s}.items{padding:8px 14px 14px}.item{padding:14px 7px;border-bottom:1px solid #eff1eb;display:grid;grid-template-columns:27px minmax(0,1fr) 115px;gap:12px;align-items:center}.item:last-child{border-bottom:0}.check{appearance:none;width:21px;height:21px;border:1.5px solid #c6d0c2;border-radius:7px;display:grid;place-items:center;margin:0;cursor:pointer;background:white}.check:checked{background:#8fbd47;border-color:#8fbd47}.check:checked:after{content:"✓";color:white;font-size:14px;font-weight:900}.item-main{min-width:0}.itemline{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.itemname{font-size:13px;font-weight:800}.itemqty{font-size:12px;font-weight:800;background:#f0f6e7;color:#395625;padding:3px 7px;border-radius:6px}.learned{font-size:9px;background:#fff1e8;color:#9a5a32;padding:3px 6px;border-radius:6px;font-weight:800}.itemdesc{font-size:10px;color:var(--muted);margin-top:4px}.item.purchased .itemname,.item.purchased .itemqty{text-decoration:line-through;opacity:.57}.pricebox{text-align:right}.pricebox label{display:block;font-size:9px;color:var(--muted);margin-bottom:4px}.priceinput{width:100%;border:1px solid #e1e7dc;background:#fbfcf8;border-radius:8px;padding:7px 7px;font-size:11px;text-align:right;color:var(--ink)}.itemcost{font-size:10px;font-weight:800;margin-top:4px;color:#506a3a}.listfoot{border-top:1px solid var(--line);background:#fcfdf9;padding:15px 20px;border-radius:0 0 19px 19px;display:flex;align-items:center;justify-content:space-between;gap:12px}.total-label{font-size:10px;color:var(--muted)}.total-value{font-size:20px;font-weight:900;letter-spacing:-.5px}.total-note{font-size:9px;color:var(--muted);margin-top:2px}.footbuttons{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:12px}.lowergrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}.info-panel{padding:19px 20px}.info-title{display:flex;gap:10px;align-items:center;margin-bottom:8px}.info-icon{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--soft);font-size:17px}.info-title h3{font-size:14px;margin:0}.info-panel p{font-size:11px;color:var(--muted);margin:0 0 12px;line-height:1.6}.historylist{display:grid;gap:8px}.historyrow{background:#f8faf4;border:1px solid var(--line);border-radius:11px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}.historyrow b{font-size:11px}.historyrow span{font-size:10px;color:var(--muted);display:block;margin-top:3px}.historybadge{font-size:9px!important;color:#49642e!important;background:#edf5df;padding:5px 7px;border-radius:7px;white-space:nowrap}.nohistory{font-size:11px;color:var(--muted);padding:10px 0}.footer{display:flex;justify-content:space-between;gap:10px;color:#89948a;font-size:10px;margin-top:22px}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(15px);background:var(--ink);color:white;padding:12px 17px;border-radius:12px;box-shadow:var(--shadow);font-size:12px;font-weight:750;opacity:0;pointer-events:none;transition:.2s;z-index:20;max-width:calc(100% - 28px)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.modal-backdrop{position:fixed;inset:0;background:rgba(15,26,18,.58);z-index:30;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.open{display:flex}.modal{background:white;border-radius:18px;width:min(520px,100%);max-height:90vh;overflow:auto;box-shadow:0 25px 70px rgba(0,0,0,.25)}.modalhead{display:flex;justify-content:space-between;gap:12px;padding:20px;border-bottom:1px solid var(--line)}.modalhead h2{font-size:18px;margin:0}.modalhead p{font-size:11px;color:var(--muted);margin:5px 0 0}.close{border:0;background:#f1f4ec;width:32px;height:32px;border-radius:9px;font-size:18px}.modalbody{padding:18px 20px 21px}.feedback-item{display:grid;grid-template-columns:minmax(0,1fr) 150px;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #eff1ea}.feedback-item:last-child{border-bottom:0}.feedback-item b{font-size:12px;display:block}.feedback-item small{font-size:10px;color:var(--muted)}.feedback-item select{width:100%;font-size:11px;padding:8px;border:1px solid var(--line);border-radius:9px;background:#fbfcf8}.modal-actions{display:flex;gap:9px;margin-top:18px}.modal-actions button{flex:1}.alert{padding:10px 12px;background:#fff4e9;color:#80512a;border:1px solid #f5dcc5;border-radius:10px;font-size:10px;line-height:1.5;margin-top:12px}
-@media(max-width:900px){.columns{grid-template-columns:300px minmax(0,1fr);gap:15px}.wrap{padding:24px 15px 35px}.item{grid-template-columns:25px minmax(0,1fr) 100px;gap:9px}.stats{gap:6px}.stat{padding:9px}.stat b{font-size:16px}.hero{align-items:flex-start;flex-direction:column}.local-note{white-space:normal}}
-@media(max-width:680px){.topbar{padding:0 16px;height:65px}.topright{font-size:10px}.wrap{padding:22px 12px 34px}.hero h1{font-size:32px}.columns{grid-template-columns:1fr}.formbody{padding:17px}.panel-head{padding:16px 17px}.summary{padding:18px}.summary h2{font-size:21px}.lowergrid{grid-template-columns:1fr}.list-head{align-items:flex-start;padding:16px}.listactions{max-width:120px}.item{grid-template-columns:22px minmax(0,1fr) 96px;padding:13px 1px;gap:8px}.items{padding:6px 12px 10px}.listfoot{align-items:flex-start;flex-direction:column;padding:15px}.footbuttons{justify-content:flex-start;width:100%}.footbuttons button{flex:1}.stats{grid-template-columns:repeat(3,1fr)}.stat b{font-size:16px}.footer{flex-direction:column}.feedback-item{grid-template-columns:minmax(0,1fr) 135px}}
-</style>
-</head>
-<body>
-<header class="topbar">
-  <div class="brand"><div class="brand-mark">✳</div><div>juntada<span style="color:var(--green)">.</span><small>ORGANIZÁ MEJOR, DESPERDICIÁ MENOS</small></div></div>
-  <div class="topright"><span class="statusdot"></span> Tu organizador de reuniones <span style="opacity:.45">·</span> <span>2.0</span></div>
-</header>
-<main class="wrap">
-  <section class="hero">
-    <div><div class="eyebrow">Menos cálculo. Más encuentro.</div><h1>Que no falte nada.<br>Que no sobre <span>de más.</span></h1><p>Elegí entre 7 comidas para tu juntada, armá la lista de alimentos y productos, calculá el gasto y contale a la app qué pasó. La próxima vez, las cantidades se ajustan a tu experiencia.</p></div>
-    <div class="local-note">🔒 <span><b>Privado por diseño</b><br>Los datos se guardan en este navegador.</span></div>
-  </section>
-  <div class="columns">
-    <section class="panel">
-      <div class="panel-head"><div class="step">01</div><div><h2>Armemos el plan</h2><p>Contanos qué estás organizando.</p></div></div>
-      <form id="eventForm" class="formbody">
-        <div class="field"><label for="eventName">Nombre de la juntada <span class="help">Opcional</span></label><input class="control" id="eventName" maxlength="60" placeholder="Ej. Asado del sábado"></div>
-        <div class="field"><label for="eventType">¿Qué tipo de reunión es?</label><select class="control" id="eventType">
-          <option value="asado">🔥 Asado</option>
-          <option value="pizza">🍕 Pizzas</option>
-          <option value="empanadas">🥟 Empanadas</option>
-          <option value="pastas">🍝 Fideos con tuco</option>
-          <option value="pollo_disco">🍗 Pollo al disco</option>
-          <option value="osobuco_disco">🥘 Osobuco al disco</option>
-          <option value="picada">🧀 Picada</option>
-        </select></div>
-        <div class="field"><label>¿Cuántas personas vienen?</label><div class="twocol"><div><label for="adults" style="font-size:10px;font-weight:600;color:var(--muted)">Adultos</label><input class="control" type="number" id="adults" min="0" max="300" value="8" required></div><div><label for="children" style="font-size:10px;font-weight:600;color:var(--muted)">Niños</label><input class="control" type="number" id="children" min="0" max="300" value="2" required></div></div><div class="counterline"><span>Total de invitados</span><b id="guestCount">10 personas</b></div></div>
-        <div class="field"><label for="duration">¿Cuánto va a durar?</label><select class="control" id="duration"><option value="2">Unas 2 horas</option><option value="3">Unas 3 horas</option><option value="4" selected>Unas 4 horas</option><option value="5">Unas 5 horas</option><option value="6">6 horas o más</option></select></div>
-        <div class="field"><label>¿Qué tan buen apetito tiene el grupo?</label><div class="segments"><label><input type="radio" name="appetite" value="light"> Tranqui</label><label><input type="radio" name="appetite" value="normal" checked> Normal</label><label><input type="radio" name="appetite" value="hungry"> ¡Con hambre!</label></div></div>
-        <div class="field"><label for="budget">Presupuesto total <span class="help">Opcional · ARS</span></label><input class="control" type="number" id="budget" min="0" step="500" placeholder="Ej. 60000"><div class="counterline"><span>Lo comparamos con los precios que cargues.</span></div></div>
-        <button class="primary full" type="submit">Calcular mi lista <span>↗</span></button>
-      </form>
-    </section>
-    <div class="rightcol">
-      <section class="summary" aria-live="polite">
-        <div class="sumtop"><div><div class="sumlabel">Tu próxima juntada</div><h2 id="summaryName">Asado entre amigos</h2><div class="sumdesc" id="summaryDesc">10 personas · 4 horas · apetito normal</div></div><div class="tag" id="typeTag">🔥 ASADO</div></div>
-        <div class="stats"><div class="stat"><b id="statGuests">10</b><span>invitados</span></div><div class="stat"><b id="statItems">6</b><span>productos</span></div><div class="stat"><b id="statCost">—</b><span>gasto estimado</span></div></div>
-        <div class="budgetline"><span id="budgetText">Cargá precios para estimar el gasto</span><div class="budgetbar"><span id="budgetBar"></span></div></div>
-      </section>
-      <section class="panel listpanel">
-        <div class="list-head"><div><div class="list-title">Tu lista de compras</div><div class="list-meta" id="listMeta">Cantidades estimadas para tu grupo</div></div><div class="listactions"><button class="subtle-btn" id="uncheckAll" type="button">Desmarcar todo</button></div></div>
-        <div class="progress-wrap"><div class="progress-label"><span id="progressText">0 de 6 productos listos</span><span id="progressPct">0%</span></div><div class="progress"><span id="progressBar"></span></div></div>
-        <div id="items" class="items"></div>
-        <div class="listfoot"><div><div class="total-label">Total de los productos con precio cargado</div><div class="total-value" id="totalCost">$ 0</div><div class="total-note" id="totalNote">Agregá precios unitarios para calcular el total.</div></div><div class="footbuttons"><button class="subtle-btn" id="copyList" type="button">↗ Copiar lista</button><button class="primary" id="reportBtn" type="button">¿Cómo salió? <span>↗</span></button></div></div>
-      </section>
-    </div>
-  </div>
-  <section class="lowergrid">
-    <div class="panel info-panel"><div class="info-title"><div class="info-icon">🧠</div><h3>La app aprende de tus juntadas</h3></div><p>Después de reunirse, registrá si sobró, alcanzó justo o faltó cada producto. En una próxima reunión del mismo tipo, Juntada 2.0 ajustará las cantidades con esa experiencia. No usa IA ni necesita internet.</p><button class="subtle-btn" id="reportBtn2" type="button">Registrar cómo salió ↗</button><div class="alert">Las cantidades son estimaciones iniciales, no reglas exactas. El apetito, el menú y las costumbres de tu grupo cambian mucho el resultado.</div></div>
-    <div class="panel info-panel"><div class="info-title"><div class="info-icon">📚</div><h3>Lo que aprendimos</h3></div><p>Tu historial queda guardado en este navegador para mejorar las próximas recomendaciones.</p><div id="history" class="historylist"><div class="nohistory">Todavía no registraste ninguna juntada.</div></div><div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px;align-items:center"><span id="historyCount" style="font-size:10px;color:var(--muted)">0 experiencias guardadas</span><button class="subtle-btn" id="resetData" type="button">Borrar mis datos</button></div></div>
-  </section>
-  <footer class="footer"><span>JUNTADA 2.0 · PROTOTIPO</span><span>Hecho para organizar mejor los encuentros cotidianos.</span><span>Los precios los cargás vos.</span></footer>
-</main>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="modal-backdrop" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
- <div class="modal"><div class="modalhead"><div><h2 id="modalTitle">¿Cómo salió la juntada?</h2><p>Tu experiencia ayuda a calcular mejor la próxima.</p></div><button class="close" id="closeModal" type="button" aria-label="Cerrar">×</button></div><div class="modalbody"><div id="feedbackList"></div><div class="alert">Elegí lo que pasó con cada producto. La app ajustará de forma gradual las cantidades para futuras reuniones de este tipo.</div><div class="modal-actions"><button class="subtle-btn" id="cancelReport" type="button">Cancelar</button><button class="primary" id="saveReport" type="button">Guardar experiencia ↗</button></div></div></div>
-</div>
-<script>
-(() => {
-  const STORAGE_KEY = 'juntada20_v1';
-  const $ = id => document.getElementById(id);
-  const typeLabels = {
-    asado:'Asado',hamburguesada:'Hamburguesada',pizza:'Pizzas',
-    tacos:'Noche de tacos',pastas:'Fideos con tuco',picada:'Picada',
-    empanadas:'Empanadas',pollo_disco:'Pollo al disco',osobuco_disco:'Osobuco al disco',
-    cumple:'Cumpleaños',merienda:'Merienda',desayuno:'Desayuno o brunch',
-    vegetariana:'Comida vegetariana'
-  };
-  const typeEmoji = {
-    asado:'🔥',hamburguesada:'🍔',pizza:'🍕',tacos:'🌮',pastas:'🍝',
-    picada:'🧀',cumple:'🎂',merienda:'🧉',desayuno:'🥐',vegetariana:'🥗',
-    empanadas:'🥟',pollo_disco:'🍗',osobuco_disco:'🥘'
-  };
-  const appetiteFactor = {light:0.84,normal:1,hungry:1.18};
-  const appetiteLabels = {light:'apetito tranqui',normal:'apetito normal',hungry:'buen apetito'};
-  const feedbackOptions = [
-    ['just','Alcanzó justo'],['little_left','Sobró un poco'],['some_left','Sobró bastante'],['lots_left','Sobró mucho'],['short','Faltó']
-  ];
-  const feedbackFactor = {just:1,little_left:0.95,some_left:0.86,lots_left:0.72,short:1.14};
-  const feedbackLabels = {just:'Justo',little_left:'Sobró poco',some_left:'Sobró bastante',lots_left:'Sobró mucho',short:'Faltó'};
-  const definitions = {
-    asado: [
-      {key:'meat',name:'Carne para asar',unit:'kg',priceUnit:'kg',desc:'Estimación de carne; depende del corte y los acompañamientos.',adult:.42,child:.23,food:true},
-      {key:'chorizo',name:'Chorizos',unit:'unid.',priceUnit:'unidad',desc:'Aproximadamente uno por adulto, menos para niños.',adult:.8,child:.35,food:true,integer:true},
-      {key:'morcilla',name:'Morcillas',unit:'unid.',priceUnit:'unidad',desc:'Opcional; ajustá según los gustos del grupo.',adult:.30,child:.12,food:true,integer:true},
-      {key:'provoleta',name:'Provoletas',unit:'unid.',priceUnit:'unidad',desc:'Una porción para compartir; es opcional.',adult:.18,child:.10,food:true,integer:true},
-      {key:'bread',name:'Pan',unit:'kg',priceUnit:'kg',desc:'Para acompañar la comida.',adult:.10,child:.07,food:true},
-      {key:'salad',name:'Ensaladas y verduras',unit:'kg',priceUnit:'kg',desc:'Acompañamientos variados.',adult:.18,child:.12,food:true},
-      {key:'chimichurri',name:'Chimichurri y salsas',unit:'frasco',priceUnit:'frasco',desc:'Cantidad orientativa; podés ajustar si preparás salsas caseras.',adult:.10,child:.05,food:false,integer:true},
-      {key:'charcoal',name:'Carbón o leña',unit:'kg',priceUnit:'kg',desc:'Depende de la parrilla, el fuego y la duración.',adult:.30,child:.14,food:false},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas; ajustá según lo que tome tu grupo.',adult:.85,child:.60,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'La cantidad varía según el clima y cómo enfríes las bebidas.',adult:.20,child:.12,food:false},
-      {key:'cake',name:'Postre o algo dulce',unit:'kg',priceUnit:'kg',desc:'Una porción pequeña por persona.',adult:.12,child:.10,food:true},
-      {key:'napkins',name:'Servilletas',unit:'unid.',priceUnit:'paquete',desc:'Paquetes de servilletas para la mesa.',adult:.10,child:.08,food:false,integer:true}
-    ],
-    hamburguesada: [
-      {key:'burger_patties',name:'Medallones para hamburguesa',unit:'unid.',priceUnit:'unidad',desc:'Uno por persona y algo extra para quienes comen más.',adult:1.25,child:.8,food:true,integer:true},
-      {key:'burger_buns',name:'Pan de hamburguesa',unit:'unid.',priceUnit:'unidad',desc:'Elegí panes del tamaño adecuado para los medallones.',adult:1.25,child:.8,food:true,integer:true},
-      {key:'burger_cheese',name:'Fetas de queso',unit:'unid.',priceUnit:'feta',desc:'Opcional; una o dos fetas por hamburguesa.',adult:1.5,child:1,food:true,integer:true},
-      {key:'burger_veg',name:'Lechuga y tomate',unit:'kg',priceUnit:'kg',desc:'Verduras frescas para armar las hamburguesas.',adult:.09,child:.06,food:true},
-      {key:'fries',name:'Papas fritas',unit:'kg',priceUnit:'kg',desc:'Acompañamiento opcional.',adult:.16,child:.10,food:true},
-      {key:'condiments',name:'Kétchup, mayonesa y mostaza',unit:'frasco',priceUnit:'frasco',desc:'Salsas para acompañar; ajustá según lo que ya tengas.',adult:.10,child:.06,food:false,integer:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.80,child:.55,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.18,child:.12,food:false},
-      {key:'napkins',name:'Servilletas',unit:'unid.',priceUnit:'paquete',desc:'Para comer sin ensuciarse.',adult:.10,child:.08,food:false,integer:true},
-      {key:'trashbags',name:'Bolsas de residuos',unit:'unid.',priceUnit:'unidad',desc:'Para juntar los residuos al terminar.',adult:.08,child:.08,food:false,integer:true}
-    ],
-    pizza: [
-      {key:'pizza',name:'Pizzas grandes',unit:'unid.',priceUnit:'unidad',desc:'Estimación para pizzas de unas 8 porciones; ajustá si habrá otros platos.',adult:.38,child:.24,food:true,integer:true},
-      {key:'faina',name:'Fainá',unit:'porciones',priceUnit:'porción',desc:'Opcional para acompañar las porciones de pizza.',adult:.25,child:.15,food:true,integer:true},
-      {key:'snacks',name:'Snacks para picar',unit:'kg',priceUnit:'kg',desc:'Papas, palitos u otros snacks para antes de comer.',adult:.06,child:.04,food:true},
-      {key:'pizza_salad',name:'Ensalada para acompañar',unit:'kg',priceUnit:'kg',desc:'Opcional para sumar una alternativa fresca.',adult:.10,child:.07,food:true},
-      {key:'olives',name:'Aceitunas y toppings extra',unit:'kg',priceUnit:'kg',desc:'Aceitunas, morrones u otros ingredientes extra.',adult:.025,child:.015,food:true},
-      {key:'pizza_condiments',name:'Orégano, ají molido y salsas',unit:'paquetes',priceUnit:'paquete',desc:'Condimentos para la mesa; descontá lo que ya tengas.',adult:.10,child:.06,food:false,integer:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Ajustá según clima y refrigeración.',adult:.16,child:.10,food:false},
-      {key:'dessert',name:'Postre o helado',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.12,child:.10,food:true},
-      {key:'cups',name:'Vasos descartables',unit:'paquetes',priceUnit:'paquete',desc:'Estimación de un paquete cada 10 personas.',adult:.10,child:.10,food:false,integer:true},
-      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Para la mesa y la comida.',adult:.10,child:.08,food:false,integer:true},
-      {key:'trashbags',name:'Bolsas de residuos',unit:'unid.',priceUnit:'unidad',desc:'Para juntar los residuos al terminar.',adult:.08,child:.08,food:false,integer:true}
-    ],
-    tacos: [
-      {key:'tortillas',name:'Tortillas para tacos',unit:'unid.',priceUnit:'unidad',desc:'Calculá unas 2 a 3 por adulto como referencia.',adult:2.5,child:1.7,food:true,integer:true},
-      {key:'taco_protein',name:'Carne o proteína para el relleno',unit:'kg',priceUnit:'kg',desc:'Carne, pollo o una alternativa vegetal.',adult:.17,child:.10,food:true},
-      {key:'taco_beans',name:'Porotos o frijoles',unit:'kg',priceUnit:'kg',desc:'Acompañamiento o relleno adicional.',adult:.06,child:.04,food:true},
-      {key:'taco_cheese',name:'Queso rallado',unit:'kg',priceUnit:'kg',desc:'Para agregar al gusto.',adult:.04,child:.025,food:true},
-      {key:'taco_veg',name:'Tomate, cebolla y lechuga',unit:'kg',priceUnit:'kg',desc:'Verduras para armar los tacos.',adult:.10,child:.07,food:true},
-      {key:'taco_salsa',name:'Salsas',unit:'frasco',priceUnit:'frasco',desc:'Salsa suave o picante, según los gustos.',adult:.10,child:.05,food:false,integer:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.16,child:.10,food:false}
-    ],
-    pastas: [
-      {key:'dry_pasta',name:'Fideos secos',unit:'kg',priceUnit:'kg',desc:'Fideos para plato principal; ajustá según los acompañamientos.',adult:.12,child:.08,food:true},
-      {key:'tuco_tomato',name:'Puré o salsa de tomate',unit:'kg',priceUnit:'kg',desc:'Base del tuco.',adult:.12,child:.08,food:true},
-      {key:'tuco_meat',name:'Carne picada para el tuco',unit:'kg',priceUnit:'kg',desc:'Opcional; podés preparar un tuco sin carne.',adult:.08,child:.05,food:true},
-      {key:'tuco_onion',name:'Cebolla',unit:'kg',priceUnit:'kg',desc:'Para la salsa.',adult:.035,child:.025,food:true},
-      {key:'tuco_carrot',name:'Zanahoria',unit:'kg',priceUnit:'kg',desc:'Opcional para darle cuerpo al tuco.',adult:.025,child:.015,food:true},
-      {key:'tuco_garlic',name:'Ajo y condimentos',unit:'paquetes',priceUnit:'paquete',desc:'Ajo, laurel, pimentón, sal y otros condimentos.',adult:.10,child:.06,food:false,integer:true},
-      {key:'grated_cheese',name:'Queso rallado',unit:'kg',priceUnit:'kg',desc:'Para servir en la mesa.',adult:.02,child:.015,food:true},
-      {key:'pasta_bread',name:'Pan',unit:'kg',priceUnit:'kg',desc:'Opcional para acompañar.',adult:.07,child:.04,food:true},
-      {key:'pasta_salad',name:'Ensalada',unit:'kg',priceUnit:'kg',desc:'Acompañamiento fresco opcional.',adult:.10,child:.07,food:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.70,child:.50,food:false,drink:true},
-      {key:'dessert',name:'Postre o fruta',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.10,child:.10,food:true},
-      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Estimación de paquetes para la mesa.',adult:.10,child:.08,food:false,integer:true}
-    ],
-    empanadas: [
-      {key:'emp_meat',name:'Empanadas de carne',unit:'unid.',priceUnit:'unidad',desc:'Sabor principal; horneadas o fritas.',adult:2,child:1,food:true,integer:true},
-      {key:'emp_hamcheese',name:'Empanadas de jamón y queso',unit:'unid.',priceUnit:'unidad',desc:'Para ofrecer una segunda variedad.',adult:.75,child:.60,food:true,integer:true},
-      {key:'emp_chicken',name:'Empanadas de pollo o verdura',unit:'unid.',priceUnit:'unidad',desc:'Tercera variedad opcional; elegí según tu grupo.',adult:.50,child:.40,food:true,integer:true},
-      {key:'emp_dips',name:'Salsa criolla o chimichurri',unit:'frascos',priceUnit:'frasco',desc:'Opcional para acompañar.',adult:.10,child:.05,food:false,integer:true},
-      {key:'emp_salad',name:'Ensalada fresca',unit:'kg',priceUnit:'kg',desc:'Tomate, lechuga y otros vegetales.',adult:.10,child:.07,food:true},
-      {key:'emp_snacks',name:'Snacks para picar',unit:'kg',priceUnit:'kg',desc:'Opcional para esperar la comida.',adult:.04,child:.03,food:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.16,child:.10,food:false},
-      {key:'dessert',name:'Postre o helado',unit:'kg',priceUnit:'kg',desc:'Opcional para terminar.',adult:.12,child:.10,food:true},
-      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Estimación de paquetes para la mesa.',adult:.10,child:.08,food:false,integer:true},
-      {key:'trashbags',name:'Bolsas de residuos',unit:'unid.',priceUnit:'unidad',desc:'Para juntar los residuos.',adult:.08,child:.08,food:false,integer:true}
-    ],
-    pollo_disco: [
-      {key:'disco_chicken',name:'Pollo trozado',unit:'kg',priceUnit:'kg',desc:'Pieza principal; puede ser pollo entero trozado.',adult:.40,child:.25,food:true},
-      {key:'disco_potatoes',name:'Papas',unit:'kg',priceUnit:'kg',desc:'Para cocinar junto con el pollo.',adult:.18,child:.12,food:true},
-      {key:'disco_onions',name:'Cebollas',unit:'kg',priceUnit:'kg',desc:'Base del sabor del disco.',adult:.06,child:.04,food:true},
-      {key:'disco_peppers',name:'Morrón',unit:'kg',priceUnit:'kg',desc:'Rojo o verde, según preferencia.',adult:.05,child:.03,food:true},
-      {key:'disco_carrots',name:'Zanahorias',unit:'kg',priceUnit:'kg',desc:'Para sumar verduras al disco.',adult:.04,child:.025,food:true},
-      {key:'disco_tomato',name:'Tomate o puré de tomate',unit:'kg',priceUnit:'kg',desc:'Para la salsa de cocción.',adult:.06,child:.04,food:true},
-      {key:'disco_liquid',name:'Caldo o vino para cocinar',unit:'L',priceUnit:'litro',desc:'Elegí caldo, vino o una combinación según tu receta.',adult:.10,child:.05,food:false},
-      {key:'disco_seasoning',name:'Ajo y condimentos',unit:'paquetes',priceUnit:'paquete',desc:'Ajo, pimentón, orégano, sal y pimienta.',adult:.10,child:.06,food:false,integer:true},
-      {key:'disco_bread',name:'Pan',unit:'kg',priceUnit:'kg',desc:'Opcional para acompañar.',adult:.07,child:.05,food:true},
-      {key:'disco_salad',name:'Ensalada',unit:'kg',priceUnit:'kg',desc:'Acompañamiento fresco opcional.',adult:.10,child:.07,food:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.15,child:.10,food:false},
-      {key:'dessert',name:'Postre o fruta',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.10,child:.10,food:true},
-      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Para la mesa.',adult:.10,child:.08,food:false,integer:true}
-    ],
-    osobuco_disco: [
-      {key:'osso_meat',name:'Osobuco',unit:'kg',priceUnit:'kg',desc:'Corte principal; la cantidad depende del hueso y del tamaño de las porciones.',adult:.45,child:.28,food:true},
-      {key:'osso_potatoes',name:'Papas',unit:'kg',priceUnit:'kg',desc:'Para cocinar junto con el osobuco.',adult:.16,child:.10,food:true},
-      {key:'osso_onions',name:'Cebollas',unit:'kg',priceUnit:'kg',desc:'Base de la preparación.',adult:.06,child:.04,food:true},
-      {key:'osso_carrots',name:'Zanahorias',unit:'kg',priceUnit:'kg',desc:'Para sumar sabor y verduras.',adult:.05,child:.03,food:true},
-      {key:'osso_peppers',name:'Morrón',unit:'kg',priceUnit:'kg',desc:'Rojo o verde.',adult:.05,child:.03,food:true},
-      {key:'osso_tomato',name:'Tomate o puré de tomate',unit:'kg',priceUnit:'kg',desc:'Para la salsa.',adult:.10,child:.06,food:true},
-      {key:'osso_liquid',name:'Caldo o vino para cocinar',unit:'L',priceUnit:'litro',desc:'Para la cocción lenta; elegí según tu receta.',adult:.10,child:.05,food:false},
-      {key:'osso_seasoning',name:'Ajo y condimentos',unit:'paquetes',priceUnit:'paquete',desc:'Ajo, laurel, pimentón, sal y pimienta.',adult:.10,child:.06,food:false,integer:true},
-      {key:'osso_polenta',name:'Polenta o arroz seco',unit:'kg',priceUnit:'kg',desc:'Guarnición opcional para acompañar la salsa.',adult:.09,child:.06,food:true},
-      {key:'osso_bread',name:'Pan',unit:'kg',priceUnit:'kg',desc:'Opcional para acompañar.',adult:.06,child:.04,food:true},
-      {key:'osso_salad',name:'Ensalada',unit:'kg',priceUnit:'kg',desc:'Acompañamiento fresco opcional.',adult:.08,child:.05,food:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.15,child:.10,food:false},
-      {key:'dessert',name:'Postre o fruta',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.10,child:.10,food:true},
-      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Para la mesa.',adult:.10,child:.08,food:false,integer:true}
-    ],
-    picada: [
-      {key:'coldcuts',name:'Fiambres',unit:'kg',priceUnit:'kg',desc:'Jamón, salame y otros fiambres.',adult:.10,child:.06,food:true},
-      {key:'cheese',name:'Quesos',unit:'kg',priceUnit:'kg',desc:'Variedad de quesos para compartir.',adult:.09,child:.05,food:true},
-      {key:'bread',name:'Pan y grisines',unit:'kg',priceUnit:'kg',desc:'Pan, grisines o tostadas.',adult:.14,child:.09,food:true},
-      {key:'snacks',name:'Snacks y extras',unit:'kg',priceUnit:'kg',desc:'Papas y otros acompañamientos.',adult:.06,child:.04,food:true},
-      {key:'olives',name:'Aceitunas y encurtidos',unit:'kg',priceUnit:'kg',desc:'Pepinitos, aceitunas y otros encurtidos.',adult:.035,child:.02,food:true},
-      {key:'spreads',name:'Dips y untables',unit:'kg',priceUnit:'kg',desc:'Hummus, queso untable y salsas.',adult:.045,child:.025,food:true},
-      {key:'nuts',name:'Frutos secos',unit:'kg',priceUnit:'kg',desc:'Opcional; revisá alergias del grupo.',adult:.025,child:.015,food:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.70,child:.50,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.15,child:.10,food:false},
-      {key:'napkins',name:'Servilletas',unit:'unid.',priceUnit:'paquete',desc:'Para compartir la picada.',adult:.10,child:.08,food:false,integer:true}
-    ],
-    cumple: [
-      {key:'pizza',name:'Pizzas grandes',unit:'unid.',priceUnit:'unidad',desc:'Una opción fácil para compartir; ajustá si habrá otro plato.',adult:.30,child:.22,food:true,integer:true},
-      {key:'snacks',name:'Snacks para picar',unit:'kg',priceUnit:'kg',desc:'Papas, palitos y otros snacks.',adult:.06,child:.04,food:true},
-      {key:'cake',name:'Torta',unit:'kg',priceUnit:'kg',desc:'Porciones de alrededor de 120 g como referencia.',adult:.12,child:.10,food:true},
-      {key:'birthday_candles',name:'Velitas para la torta',unit:'unid.',priceUnit:'paquete',desc:'Estimación de un paquete cada 10 personas aproximadamente.',adult:.10,child:.10,food:false,integer:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.80,child:.55,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.18,child:.12,food:false},
-      {key:'plates',name:'Platos descartables',unit:'unid.',priceUnit:'paquete',desc:'Uno por invitado como base.',adult:.10,child:.10,food:false,integer:true},
-      {key:'cups',name:'Vasos descartables',unit:'unid.',priceUnit:'paquete',desc:'Calculá unos cuantos por persona.',adult:.20,child:.15,food:false,integer:true},
-      {key:'napkins',name:'Servilletas',unit:'unid.',priceUnit:'paquete',desc:'Paquetes para la mesa.',adult:.10,child:.08,food:false,integer:true},
-      {key:'trashbags',name:'Bolsas de residuos',unit:'unid.',priceUnit:'unidad',desc:'Para dejar el espacio limpio al terminar.',adult:.08,child:.08,food:false,integer:true}
-    ],
-    merienda: [
-      {key:'facturas',name:'Facturas o medialunas',unit:'unid.',priceUnit:'unidad',desc:'Estimación de 1 a 3 por persona según el apetito.',adult:2,child:1.5,food:true,integer:true},
-      {key:'merienda_cake',name:'Pastafrola o budín',unit:'kg',priceUnit:'kg',desc:'Algo dulce para compartir.',adult:.10,child:.08,food:true},
-      {key:'sandwiches',name:'Sándwiches',unit:'unid.',priceUnit:'unidad',desc:'Opcionales si la merienda también reemplaza una comida.',adult:.7,child:.5,food:true,integer:true},
-      {key:'coffee',name:'Café o té preparado',unit:'L',priceUnit:'litro',desc:'Puede ser menos si la mayoría toma mate.',adult:.20,child:.08,food:false,drink:true},
-      {key:'milk',name:'Leche',unit:'L',priceUnit:'litro',desc:'Para mate cocido, té o café con leche.',adult:.10,child:.18,food:false,drink:true},
-      {key:'juice',name:'Jugo',unit:'L',priceUnit:'litro',desc:'Otra opción de bebida sin alcohol.',adult:.25,child:.22,food:false,drink:true},
-      {key:'snacks',name:'Snacks salados',unit:'kg',priceUnit:'kg',desc:'Opcional para combinar con lo dulce.',adult:.04,child:.035,food:true}
-    ],
-    desayuno: [
-      {key:'breakfast_pastries',name:'Medialunas o panificados',unit:'unid.',priceUnit:'unidad',desc:'Piezas de panadería para acompañar el desayuno.',adult:2,child:1.5,food:true,integer:true},
-      {key:'toast_bread',name:'Pan para tostadas',unit:'kg',priceUnit:'kg',desc:'Pan lactal o pan para tostar.',adult:.08,child:.05,food:true},
-      {key:'breakfast_spread',name:'Manteca y mermelada',unit:'kg',priceUnit:'kg',desc:'Untables para las tostadas.',adult:.03,child:.025,food:true},
-      {key:'eggs',name:'Huevos',unit:'unid.',priceUnit:'unidad',desc:'Opcionales para un desayuno más completo.',adult:1,child:.6,food:true,integer:true},
-      {key:'fruit',name:'Fruta fresca',unit:'kg',priceUnit:'kg',desc:'Fruta de estación cortada o entera.',adult:.12,child:.10,food:true},
-      {key:'coffee',name:'Café o té preparado',unit:'L',priceUnit:'litro',desc:'Estimación para tazas pequeñas.',adult:.22,child:.08,food:false,drink:true},
-      {key:'milk',name:'Leche',unit:'L',priceUnit:'litro',desc:'Para café, té o chocolatada.',adult:.10,child:.18,food:false,drink:true},
-      {key:'juice',name:'Jugo',unit:'L',priceUnit:'litro',desc:'Bebida fría para acompañar.',adult:.20,child:.20,food:false,drink:true},
-      {key:'yogurt',name:'Yogur',unit:'unid.',priceUnit:'unidad',desc:'Opcional; un pote por persona que lo consuma.',adult:.5,child:.7,food:true,integer:true}
-    ],
-    vegetariana: [
-      {key:'veggie_burgers',name:'Medallones vegetarianos',unit:'unid.',priceUnit:'unidad',desc:'Hamburguesas vegetales o de legumbres.',adult:1.2,child:.8,food:true,integer:true},
-      {key:'veggie_grains',name:'Legumbres cocidas',unit:'kg',priceUnit:'kg',desc:'Garbanzos, lentejas o porotos como base del menú.',adult:.10,child:.07,food:true},
-      {key:'veggie_veg',name:'Verduras para cocinar',unit:'kg',priceUnit:'kg',desc:'Zapallito, berenjena, morrón, cebolla u otras.',adult:.18,child:.12,food:true},
-      {key:'veggie_salad',name:'Ensaladas',unit:'kg',priceUnit:'kg',desc:'Hojas verdes, tomate y otros vegetales frescos.',adult:.12,child:.08,food:true},
-      {key:'veggie_bread',name:'Pan o wraps',unit:'unid.',priceUnit:'unidad',desc:'Para acompañar o preparar sándwiches y wraps.',adult:1,child:.7,food:true,integer:true},
-      {key:'veggie_cheese',name:'Queso o alternativa vegetal',unit:'kg',priceUnit:'kg',desc:'Opcional según el menú y las preferencias.',adult:.05,child:.035,food:true},
-      {key:'hummus',name:'Hummus o dip de legumbres',unit:'kg',priceUnit:'kg',desc:'Para picar o acompañar las verduras.',adult:.05,child:.03,food:true},
-      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
-      {key:'fruit',name:'Fruta o postre',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.10,child:.10,food:true}
-    ]
-  };
-  const defaults = {
-    settings:{name:'',type:'asado',adults:8,children:2,duration:4,appetite:'normal',budget:''},
-    plan:null, history:[], prices:{}
-  };
-  const selectableTypes = ['asado','pizza','empanadas','pastas','pollo_disco','osobuco_disco','picada'];
-  let state = loadState();
-  // Si había una categoría antigua guardada, volver a Asado sin borrar el historial ni los precios.
-  if (!selectableTypes.includes(state.settings.type)) {
-    state.settings.type = 'asado';
-    state.settings.name = '';
-    state.plan = null;
-  }
-  let toastTimer;
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#17251d">
+        <title>Juntada 2.0 — Organizá mejor, desperdiciá menos</title>
+        <style>
+            :root {
+                --ink: #19251d;
+                --ink2: #34443a;
+                --muted: #738077;
+                --paper: #f7f7f0;
+                --white: #fff;
+                --line: #e3e8df;
+                --green: #c9f36a;
+                --green2: #a8d94d;
+                --soft: #edf5df;
+                --orange: #ed9d69;
+                --red: #c95d49;
+                --shadow: 0 12px 35px rgba(25,37,29,.08)
+            }
 
-  function loadState(){
-    try {
-      const raw=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
-      if(!raw || typeof raw!=='object') return structuredClone(defaults);
-      return {
-        settings:{...defaults.settings,...(raw.settings||{})},
-        plan:raw.plan && Array.isArray(raw.plan.items) ? raw.plan : null,
-        history:Array.isArray(raw.history)?raw.history:[],
-        prices:raw.prices && typeof raw.prices==='object'?raw.prices:{}
-      };
-    } catch(e){return structuredClone(defaults);}
-  }
-  function persist(){
-    try {localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}
-    catch(e){showToast('No se pudo guardar en este navegador. Podés seguir usando la app mientras esté abierta.');}
-  }
-  function showToast(message){
-    const el=$('toast');el.textContent=message;el.classList.add('show');
-    clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2700);
-  }
-  function clamp(n,min,max){return Math.min(max,Math.max(min,n));}
-  function getSettings(){
-    const adults=clamp(parseInt($('adults').value,10)||0,0,300);
-    const children=clamp(parseInt($('children').value,10)||0,0,300);
-    return {name:$('eventName').value.trim() || typeLabels[$('eventType').value],type:$('eventType').value,adults,children,duration:parseInt($('duration').value,10)||4,appetite:document.querySelector('input[name="appetite"]:checked')?.value||'normal',budget:Math.max(0,Number($('budget').value)||0)};
-  }
-  function getFeedbackAdjustment(type,key){
-    const values=[];
-    for(const record of state.history){
-      if(record.type===type && record.feedback && record.feedback[key]) values.push(feedbackFactor[record.feedback[key]]||1);
-    }
-    if(!values.length) return 1;
-    // Aprendizaje gradual: se usa un promedio moderado, no un cambio extremo.
-    const avg=values.reduce((a,b)=>a+b,0)/values.length;
-    return clamp(1+(avg-1)*0.75,0.70,1.15);
-  }
-  function roundQty(value,integer){
-    if(integer) return Math.max(1,Math.ceil(value));
-    return Math.max(0.1,Math.ceil(value*10)/10);
-  }
-  function calculate(settings){
-    const people=settings.adults+settings.children;
-    const appetite=appetiteFactor[settings.appetite]||1;
-    const durationFactor=1+Math.max(0,settings.duration-4)*0.045;
-    const shortDuration=settings.duration<4?Math.max(.75,settings.duration/4):1;
-    return definitions[settings.type].map(def=>{
-      const multiplier=getFeedbackAdjustment(settings.type,def.key);
-      const base=(settings.adults*def.adult)+(settings.children*def.child);
-      const timeFactor=def.drink ? (settings.duration/4) : (def.food ? durationFactor : 1);
-      const appetiteMultiplier=def.food ? appetite : (def.drink ? (0.90+appetite*.10) : 1);
-      const quantity=people===0?0:roundQty(base*timeFactor*shortDuration*appetiteMultiplier*multiplier,!!def.integer);
-      const price=Number(state.prices[def.key])||0;
-      return {...def,quantity,price,cost:price*quantity,adjusted:Math.abs(multiplier-1)>.025,adjustment:multiplier,purchased:!!(state.plan?.items?.find(i=>i.key===def.key)?.purchased)};
-    });
-  }
-  function currency(n){return new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(n||0);}
-  function formatQty(n){return Number.isInteger(n)?String(n):n.toLocaleString('es-AR',{minimumFractionDigits:1,maximumFractionDigits:1});}
-  function esc(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-  function saveCurrentPlan(settings,items){
-    state.settings=settings;
-    state.plan={name:settings.name,type:settings.type,adults:settings.adults,children:settings.children,duration:settings.duration,appetite:settings.appetite,budget:settings.budget,items:items.map(i=>({key:i.key,purchased:!!i.purchased}))};
-    persist();
-  }
-  function updateGuestCount(){
-    const total=Math.max(0,Number($('adults').value)||0)+Math.max(0,Number($('children').value)||0);
-    $('guestCount').textContent=total+' '+(total===1?'persona':'personas');
-  }
-  function fillForm(settings){
-    $('eventName').value=settings.name||'';$('eventType').value=settings.type||'asado';
-    $('adults').value=settings.adults??8;$('children').value=settings.children??2;
-    $('duration').value=String(settings.duration||4);$('budget').value=settings.budget||'';
-    const radio=document.querySelector(`input[name="appetite"][value="${settings.appetite||'normal'}"]`);if(radio)radio.checked=true;
-    updateGuestCount();
-  }
-  function render(){
-    const settings=state.settings;
-    const items=calculate(settings);
-    // Conservar el estado comprado solo para las categorías que siguen en la lista.
-    if(state.plan?.items){items.forEach(item=>{const old=state.plan.items.find(x=>x.key===item.key);if(old)item.purchased=!!old.purchased;});}
-    saveCurrentPlan(settings,items);
-    const people=settings.adults+settings.children;
-    $('summaryName').textContent=settings.name||typeLabels[settings.type];
-    $('summaryDesc').textContent=`${people} ${people===1?'persona':'personas'} · ${settings.duration} ${settings.duration===1?'hora':'horas'} · ${appetiteLabels[settings.appetite]}`;
-    $('typeTag').textContent=`${typeEmoji[settings.type]} ${typeLabels[settings.type].toUpperCase()}`;
-    $('statGuests').textContent=people;$('statItems').textContent=items.length;
-    const pricedTotal=items.reduce((sum,i)=>sum+i.cost,0);
-    const priceCount=items.filter(i=>i.price>0).length;
-    $('statCost').textContent=priceCount===items.length?currency(pricedTotal):(priceCount?'Parcial':'—');
-    $('totalCost').textContent=currency(pricedTotal);
-    $('totalNote').textContent=priceCount===items.length?'Estimación con todos los precios cargados':`${priceCount} de ${items.length} productos con precio cargado`;
-    if(settings.budget>0){
-      const ratio=pricedTotal/settings.budget;
-      $('budgetText').textContent=priceCount===items.length?`${Math.round(ratio*100)}% del presupuesto usado`:'Cargá todos los precios para comparar con tu presupuesto';
-      $('budgetBar').style.width=(priceCount===items.length?Math.min(100,ratio*100):0)+'%';
-      $('budgetBar').style.background=ratio>1?'#ed9d69':'var(--green)';
-    } else {$('budgetText').textContent=priceCount?'Precios cargados · sin presupuesto definido':'Cargá precios para estimar el gasto';$('budgetBar').style.width='0%';}
-    $('listMeta').textContent=`Estimación para ${people} invitados · podés editar los precios`;
-    const purchased=items.filter(i=>i.purchased).length;
-    $('progressText').textContent=`${purchased} de ${items.length} productos listos`;
-    $('progressPct').textContent=(items.length?Math.round(purchased/items.length*100):0)+'%';
-    $('progressBar').style.width=(items.length?purchased/items.length*100:0)+'%';
-    $('items').innerHTML=items.length?items.map(item=>`
-      <div class="item ${item.purchased?'purchased':''}" data-item="${esc(item.key)}">
-        <input class="check" type="checkbox" data-check="${esc(item.key)}" aria-label="Marcar ${esc(item.name)} como comprado" ${item.purchased?'checked':''}>
-        <div class="item-main"><div class="itemline"><span class="itemname">${esc(item.name)}</span><span class="itemqty">${formatQty(item.quantity)} ${esc(item.unit)}</span>${item.adjusted?`<span class="learned">AJUSTADO POR TU HISTORIAL</span>`:''}</div><div class="itemdesc">${esc(item.desc)}</div></div>
-        <div class="pricebox"><label for="price-${esc(item.key)}">Precio por ${esc(item.priceUnit)} ($)</label><input class="priceinput" type="number" min="0" step="1" placeholder="Opcional" id="price-${esc(item.key)}" data-price="${esc(item.key)}" value="${state.prices[item.key]??''}"><div class="itemcost">${item.price>0?currency(item.cost):'Sin precio'}</div></div>
-      </div>`).join(''):'<div class="empty">Agregá al menos una persona para calcular cantidades.</div>';
-    renderHistory();
-  }
-  function renderHistory(){
-    const history=state.history.slice().reverse().slice(0,4);
-    $('historyCount').textContent=`${state.history.length} ${state.history.length===1?'experiencia guardada':'experiencias guardadas'}`;
-    $('history').innerHTML=history.length?history.map(record=>{
-      const date=new Date(record.date);const dateText=Number.isNaN(date.getTime())?'Fecha guardada':date.toLocaleDateString('es-AR',{day:'2-digit',month:'short',year:'numeric'});
-      return `<div class="historyrow"><div><b>${esc(record.name||typeLabels[record.type]||'Juntada')}</b><span>${esc(dateText)} · ${record.guests} invitados</span></div><span class="historybadge">${esc(typeLabels[record.type]||record.type)} · registrada</span></div>`;
-    }).join(''):'<div class="nohistory">Todavía no registraste ninguna juntada.</div>';
-  }
-  function openReport(){
-    const settings=state.settings;const items=calculate(settings);
-    $('feedbackList').innerHTML=items.map(item=>`<div class="feedback-item"><div><b>${esc(item.name)} · ${formatQty(item.quantity)} ${esc(item.unit)}</b><small>¿Qué pasó con este producto?</small></div><select data-feedback="${esc(item.key)}" aria-label="Resultado para ${esc(item.name)}">${feedbackOptions.map(([value,label])=>`<option value="${value}" ${value==='just'?'selected':''}>${label}</option>`).join('')}</select></div>`).join('');
-    $('reportModal').classList.add('open');
-  }
-  function closeReport(){$('reportModal').classList.remove('open');}
-  function saveReport(){
-    const settings=state.settings;
-    const feedback={};document.querySelectorAll('[data-feedback]').forEach(el=>feedback[el.dataset.feedback]=el.value);
-    state.history.push({id:Date.now(),date:new Date().toISOString(),name:settings.name,type:settings.type,guests:settings.adults+settings.children,duration:settings.duration,feedback});
-    // Limitar el historial en el prototipo sin perder sus últimas experiencias.
-    state.history=state.history.slice(-30);persist();closeReport();render();showToast('¡Experiencia guardada! La próxima lista tendrá en cuenta tus respuestas.');
-  }
-  function copyList(){
-    const items=calculate(state.settings);
-    const lines=[`Juntada 2.0 — ${state.settings.name||typeLabels[state.settings.type]}`,`${state.settings.adults+state.settings.children} invitados · ${typeLabels[state.settings.type]}`,'',...items.map(item=>`${item.purchased?'[x]':'[ ]'} ${item.name}: ${formatQty(item.quantity)} ${item.unit}${item.price>0?' — '+currency(item.cost):''}`)];
-    const text=lines.join('\n');
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>showToast('Lista copiada. Ya podés compartirla.')).catch(()=>fallbackCopy(text));}
-    else fallbackCopy(text);
-  }
-  function fallbackCopy(text){
-    const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();
-    try{document.execCommand('copy');showToast('Lista copiada. Ya podés compartirla.');}catch(e){showToast('No se pudo copiar automáticamente.');}area.remove();
-  }
-  $('eventForm').addEventListener('submit',event=>{
-    event.preventDefault();const settings=getSettings();
-    if(settings.adults+settings.children<1){showToast('Agregá al menos un invitado para calcular.');return;}
-    state.settings=settings;
-    const items=calculate(settings);saveCurrentPlan(settings,items);render();
-    showToast('Lista recalculada para tu juntada.');
-    $('summaryName').scrollIntoView({behavior:'smooth',block:'center'});
-  });
-  ['adults','children'].forEach(id=>$(id).addEventListener('input',updateGuestCount));
-  $('items').addEventListener('change',event=>{
-    const key=event.target.dataset.check;
-    const priceKey=event.target.dataset.price;
-    if(key){const item=state.plan?.items?.find(i=>i.key===key);if(item)item.purchased=event.target.checked;persist();render();return;}
-    if(priceKey){const value=Math.max(0,Number(event.target.value)||0);state.prices[priceKey]=value;persist();render();}
-  });
-  // Actualizar precios también al escribir, no solo al salir del campo.
-  $('items').addEventListener('input',event=>{
-    const key=event.target.dataset.price;if(!key)return;
-    state.prices[key]=Math.max(0,Number(event.target.value)||0);persist();
-    const items=calculate(state.settings);const total=items.reduce((sum,item)=>sum+item.cost,0);const count=items.filter(item=>item.price>0).length;
-    $('totalCost').textContent=currency(total);$('totalNote').textContent=count===items.length?'Estimación con todos los precios cargados':`${count} de ${items.length} productos con precio cargado`;$('statCost').textContent=count===items.length?currency(total):(count?'Parcial':'—');
-    const budget=Number(state.settings.budget)||0;if(budget){$('budgetText').textContent=count===items.length?`${Math.round(total/budget*100)}% del presupuesto usado`:'Cargá todos los precios para comparar con tu presupuesto';$('budgetBar').style.width=(count===items.length?Math.min(100,total/budget*100):0)+'%';$('budgetBar').style.background=total>budget?'#ed9d69':'var(--green)';}
-    const card=event.target.closest('.pricebox');if(card){const output=card.querySelector('.itemcost');const item=items.find(i=>i.key===key);if(output&&item)output.textContent=item.price>0?currency(item.cost):'Sin precio';}
-  });
-  $('uncheckAll').addEventListener('click',()=>{if(state.plan?.items)state.plan.items.forEach(i=>i.purchased=false);persist();render();showToast('Se desmarcaron todos los productos.');});
-  $('copyList').addEventListener('click',copyList);
-  $('reportBtn').addEventListener('click',openReport);$('reportBtn2').addEventListener('click',openReport);
-  $('closeModal').addEventListener('click',closeReport);$('cancelReport').addEventListener('click',closeReport);$('saveReport').addEventListener('click',saveReport);
-  $('reportModal').addEventListener('click',event=>{if(event.target===$('reportModal'))closeReport();});
-  $('resetData').addEventListener('click',()=>{
-    if(!confirm('¿Borrar el historial, los precios y la lista guardada de este navegador?'))return;
-    try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
-    state=structuredClone(defaults);fillForm(state.settings);render();showToast('Se borraron los datos guardados.');
-  });
-  // Cargar plan anterior si existe; de lo contrario, construir uno inicial.
-  fillForm(state.settings);
-  if(!state.plan){const items=calculate(state.settings);saveCurrentPlan(state.settings,items);}
-  render();
-})();
-</script>
-</body>
+            * {
+                box-sizing: border-box
+            }
+
+            html {
+                scroll-behavior: smooth
+            }
+
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family: Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+                line-height: 1.45
+            }
+
+            button,input,select {
+                font: inherit
+            }
+
+            button {
+                cursor: pointer
+            }
+
+            button:focus-visible,input:focus-visible,select:focus-visible {
+                outline: 3px solid rgba(128,177,54,.4);
+                outline-offset: 2px
+            }
+
+            .topbar {
+                height: 74px;
+                background: var(--ink);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 max(22px,calc((100vw - 1180px)/2));
+                gap: 20px
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 11px;
+                font-weight: 850;
+                letter-spacing: -1px;
+                font-size: 23px
+            }
+
+            .brand-mark {
+                height: 39px;
+                width: 39px;
+                border-radius: 13px;
+                background: var(--green);
+                color: var(--ink);
+                display: grid;
+                place-items: center;
+                font-size: 22px
+            }
+
+            .brand small {
+                font-size: 10px;
+                letter-spacing: 1.5px;
+                color: #b3c1b5;
+                display: block;
+                font-weight: 650;
+                margin-top: -3px
+            }
+
+            .topright {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                color: #cfdbce;
+                font-size: 12px
+            }
+
+            .statusdot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: var(--green);
+                display: inline-block
+            }
+
+            .wrap {
+                max-width: 1180px;
+                margin: auto;
+                padding: 30px 22px 48px
+            }
+
+            .hero {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                gap: 22px;
+                margin-bottom: 25px
+            }
+
+            .eyebrow {
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 800;
+                color: #637b48;
+                font-size: 10px;
+                margin-bottom: 8px
+            }
+
+            .hero h1 {
+                font-size: clamp(28px,4vw,42px);
+                line-height: 1.04;
+                letter-spacing: -1.7px;
+                margin: 0;
+                max-width: 690px
+            }
+
+            .hero h1 span {
+                background: var(--green);
+                padding: 0 7px;
+                border-radius: 7px;
+                display: inline-block;
+                transform: rotate(-1deg)
+            }
+
+            .hero p {
+                margin: 12px 0 0;
+                color: var(--muted);
+                max-width: 620px;
+                font-size: 14px
+            }
+
+            .local-note {
+                font-size: 11px;
+                color: var(--muted);
+                display: flex;
+                gap: 7px;
+                align-items: center;
+                background: #fff;
+                border: 1px solid var(--line);
+                padding: 10px 12px;
+                border-radius: 12px;
+                white-space: nowrap
+            }
+
+            .columns {
+                display: grid;
+                grid-template-columns: 345px minmax(0,1fr);
+                gap: 22px;
+                align-items: start
+            }
+
+            .panel {
+                background: var(--white);
+                border: 1px solid var(--line);
+                border-radius: 19px;
+                box-shadow: var(--shadow);
+                overflow: hidden
+            }
+
+            .panel-head {
+                padding: 19px 21px 14px;
+                border-bottom: 1px solid #eef0e9;
+                display: flex;
+                align-items: flex-start;
+                gap: 12px
+            }
+
+            .step {
+                width: 30px;
+                height: 30px;
+                background: var(--soft);
+                border-radius: 10px;
+                display: grid;
+                place-items: center;
+                color: #536e31;
+                font-weight: 850;
+                font-size: 12px;
+                flex-shrink: 0
+            }
+
+            .panel-head h2 {
+                font-size: 16px;
+                margin: 1px 0 3px;
+                letter-spacing: -.3px
+            }
+
+            .panel-head p {
+                font-size: 12px;
+                color: var(--muted);
+                margin: 0
+            }
+
+            .formbody {
+                padding: 20px 21px 22px
+            }
+
+            .field {
+                margin-bottom: 17px
+            }
+
+            .field:last-child {
+                margin-bottom: 0
+            }
+
+            .field label {
+                font-size: 12px;
+                font-weight: 750;
+                display: flex;
+                justify-content: space-between;
+                gap: 8px;
+                margin-bottom: 7px
+            }
+
+            .field .help {
+                color: var(--muted);
+                font-weight: 450;
+                font-size: 10px
+            }
+
+            .control {
+                width: 100%;
+                min-height: 43px;
+                border: 1px solid #dfe5db;
+                border-radius: 11px;
+                background: #fbfcf8;
+                padding: 10px 12px;
+                color: var(--ink);
+                outline: none
+            }
+
+            .control:focus {
+                border-color: #8ebc45
+            }
+
+            .twocol {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 11px
+            }
+
+            .segments {
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                gap: 6px
+            }
+
+            .segments label {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                font-size: 11px;
+                font-weight: 700;
+                min-height: 43px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 7px 3px;
+                cursor: pointer;
+                color: var(--muted);
+                background: #fbfcf8
+            }
+
+            .segments input {
+                position: absolute;
+                opacity: 0;
+                width: 1px;
+                height: 1px
+            }
+
+            .segments label:has(input:checked) {
+                background: var(--soft);
+                border-color: #9fc65d;
+                color: #354825;
+                box-shadow: inset 0 0 0 1px #c4e28e
+            }
+
+            .counterline {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 5px;
+                color: var(--muted);
+                font-size: 11px
+            }
+
+            .primary {
+                border: 0;
+                background: var(--ink);
+                color: white;
+                border-radius: 12px;
+                padding: 13px 16px;
+                font-weight: 800;
+                font-size: 13px;
+                transition: .15s
+            }
+
+            .primary:hover {
+                background: #2b4434;
+                transform: translateY(-1px)
+            }
+
+            .primary span {
+                color: var(--green);
+                font-size: 16px;
+                margin-left: 5px
+            }
+
+            .full {
+                width: 100%;
+                margin-top: 20px
+            }
+
+            .subtle-btn {
+                background: #f2f6ec;
+                color: #344d25;
+                border: 1px solid #e1ead4;
+                padding: 9px 12px;
+                border-radius: 10px;
+                font-weight: 750;
+                font-size: 11px
+            }
+
+            .subtle-btn:hover {
+                background: #e6f2d6
+            }
+
+            .rightcol {
+                min-width: 0
+            }
+
+            .summary {
+                background: var(--ink);
+                border-radius: 19px;
+                color: white;
+                padding: 21px 22px 19px;
+                margin-bottom: 17px;
+                position: relative;
+                overflow: hidden
+            }
+
+            .summary:after {
+                content: "";
+                position: absolute;
+                width: 180px;
+                height: 180px;
+                border: 28px solid rgba(201,243,106,.07);
+                border-radius: 50%;
+                right: -70px;
+                top: -75px;
+                pointer-events: none
+            }
+
+            .sumtop {
+                display: flex;
+                justify-content: space-between;
+                gap: 15px;
+                position: relative;
+                z-index: 1
+            }
+
+            .sumlabel {
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 1.7px;
+                color: #bdc9bd;
+                font-weight: 800
+            }
+
+            .summary h2 {
+                font-size: 23px;
+                margin: 5px 0 4px;
+                letter-spacing: -.8px
+            }
+
+            .sumdesc {
+                font-size: 12px;
+                color: #b4c1b6
+            }
+
+            .tag {
+                background: #2c3a2e;
+                color: var(--green);
+                border: 1px solid #43573b;
+                border-radius: 30px;
+                font-size: 10px;
+                font-weight: 800;
+                white-space: nowrap;
+                height: max-content;
+                padding: 7px 10px
+            }
+
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                gap: 9px;
+                margin-top: 19px;
+                position: relative;
+                z-index: 1
+            }
+
+            .stat {
+                border: 1px solid #38463a;
+                background: #202e23;
+                border-radius: 12px;
+                padding: 11px
+            }
+
+            .stat b {
+                font-size: 19px;
+                display: block;
+                letter-spacing: -.5px
+            }
+
+            .stat span {
+                font-size: 10px;
+                color: #bac8ba
+            }
+
+            .budgetline {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-top: 14px;
+                font-size: 11px;
+                color: #b8c5b9;
+                position: relative;
+                z-index: 1
+            }
+
+            .budgetbar {
+                height: 6px;
+                border-radius: 20px;
+                background: #35463a;
+                flex: 1;
+                overflow: hidden
+            }
+
+            .budgetbar span {
+                display: block;
+                height: 100%;
+                width: 0;
+                background: var(--green);
+                border-radius: 20px;
+                transition: width .25s
+            }
+
+            .listpanel {
+                overflow: visible
+            }
+
+            .list-head {
+                padding: 18px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                border-bottom: 1px solid var(--line)
+            }
+
+            .list-title {
+                font-weight: 850;
+                font-size: 16px;
+                letter-spacing: -.3px
+            }
+
+            .list-meta {
+                font-size: 11px;
+                color: var(--muted);
+                margin-top: 3px
+            }
+
+            .listactions {
+                display: flex;
+                gap: 7px;
+                flex-wrap: wrap;
+                justify-content: flex-end
+            }
+
+            .progress-wrap {
+                padding: 13px 20px 0
+            }
+
+            .progress-label {
+                display: flex;
+                justify-content: space-between;
+                font-size: 10px;
+                color: var(--muted);
+                margin-bottom: 6px
+            }
+
+            .progress {
+                height: 5px;
+                background: #edf0e8;
+                border-radius: 20px;
+                overflow: hidden
+            }
+
+            .progress span {
+                display: block;
+                height: 100%;
+                width: 0;
+                background: #8fbd47;
+                transition: width .2s
+            }
+
+            .items {
+                padding: 8px 14px 14px
+            }
+
+            .item {
+                padding: 14px 7px;
+                border-bottom: 1px solid #eff1eb;
+                display: grid;
+                grid-template-columns: 27px minmax(0,1fr) 115px;
+                gap: 12px;
+                align-items: center
+            }
+
+            .item:last-child {
+                border-bottom: 0
+            }
+
+            .check {
+                appearance: none;
+                width: 21px;
+                height: 21px;
+                border: 1.5px solid #c6d0c2;
+                border-radius: 7px;
+                display: grid;
+                place-items: center;
+                margin: 0;
+                cursor: pointer;
+                background: white
+            }
+
+            .check:checked {
+                background: #8fbd47;
+                border-color: #8fbd47
+            }
+
+            .check:checked:after {
+                content: "✓";
+                color: white;
+                font-size: 14px;
+                font-weight: 900
+            }
+
+            .item-main {
+                min-width: 0
+            }
+
+            .itemline {
+                display: flex;
+                gap: 7px;
+                align-items: center;
+                flex-wrap: wrap
+            }
+
+            .itemname {
+                font-size: 13px;
+                font-weight: 800
+            }
+
+            .itemqty {
+                font-size: 12px;
+                font-weight: 800;
+                background: #f0f6e7;
+                color: #395625;
+                padding: 3px 7px;
+                border-radius: 6px
+            }
+
+            .learned {
+                font-size: 9px;
+                background: #fff1e8;
+                color: #9a5a32;
+                padding: 3px 6px;
+                border-radius: 6px;
+                font-weight: 800
+            }
+
+            .itemdesc {
+                font-size: 10px;
+                color: var(--muted);
+                margin-top: 4px
+            }
+
+            .item.purchased .itemname,.item.purchased .itemqty {
+                text-decoration: line-through;
+                opacity: .57
+            }
+
+            .pricebox {
+                text-align: right
+            }
+
+            .pricebox label {
+                display: block;
+                font-size: 9px;
+                color: var(--muted);
+                margin-bottom: 4px
+            }
+
+            .priceinput {
+                width: 100%;
+                border: 1px solid #e1e7dc;
+                background: #fbfcf8;
+                border-radius: 8px;
+                padding: 7px 7px;
+                font-size: 11px;
+                text-align: right;
+                color: var(--ink)
+            }
+
+            .itemcost {
+                font-size: 10px;
+                font-weight: 800;
+                margin-top: 4px;
+                color: #506a3a
+            }
+
+            .listfoot {
+                border-top: 1px solid var(--line);
+                background: #fcfdf9;
+                padding: 15px 20px;
+                border-radius: 0 0 19px 19px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px
+            }
+
+            .total-label {
+                font-size: 10px;
+                color: var(--muted)
+            }
+
+            .total-value {
+                font-size: 20px;
+                font-weight: 900;
+                letter-spacing: -.5px
+            }
+
+            .total-note {
+                font-size: 9px;
+                color: var(--muted);
+                margin-top: 2px
+            }
+
+            .footbuttons {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: flex-end
+            }
+
+            .empty {
+                padding: 40px 20px;
+                text-align: center;
+                color: var(--muted);
+                font-size: 12px
+            }
+
+            .lowergrid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 18px;
+                margin-top: 22px
+            }
+
+            .info-panel {
+                padding: 19px 20px
+            }
+
+            .info-title {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 8px
+            }
+
+            .info-icon {
+                width: 34px;
+                height: 34px;
+                border-radius: 11px;
+                display: grid;
+                place-items: center;
+                background: var(--soft);
+                font-size: 17px
+            }
+
+            .info-title h3 {
+                font-size: 14px;
+                margin: 0
+            }
+
+            .info-panel p {
+                font-size: 11px;
+                color: var(--muted);
+                margin: 0 0 12px;
+                line-height: 1.6
+            }
+
+            .historylist {
+                display: grid;
+                gap: 8px
+            }
+
+            .historyrow {
+                background: #f8faf4;
+                border: 1px solid var(--line);
+                border-radius: 11px;
+                padding: 10px 12px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px
+            }
+
+            .historyrow b {
+                font-size: 11px
+            }
+
+            .historyrow span {
+                font-size: 10px;
+                color: var(--muted);
+                display: block;
+                margin-top: 3px
+            }
+
+            .historybadge {
+                font-size: 9px!important;
+                color: #49642e!important;
+                background: #edf5df;
+                padding: 5px 7px;
+                border-radius: 7px;
+                white-space: nowrap
+            }
+
+            .nohistory {
+                font-size: 11px;
+                color: var(--muted);
+                padding: 10px 0
+            }
+
+            .footer {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                color: #89948a;
+                font-size: 10px;
+                margin-top: 22px
+            }
+
+            .toast {
+                position: fixed;
+                bottom: 22px;
+                left: 50%;
+                transform: translateX(-50%) translateY(15px);
+                background: var(--ink);
+                color: white;
+                padding: 12px 17px;
+                border-radius: 12px;
+                box-shadow: var(--shadow);
+                font-size: 12px;
+                font-weight: 750;
+                opacity: 0;
+                pointer-events: none;
+                transition: .2s;
+                z-index: 20;
+                max-width: calc(100% - 28px)
+            }
+
+            .toast.show {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0)
+            }
+
+            .modal-backdrop {
+                position: fixed;
+                inset: 0;
+                background: rgba(15,26,18,.58);
+                z-index: 30;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                padding: 18px
+            }
+
+            .modal-backdrop.open {
+                display: flex
+            }
+
+            .modal {
+                background: white;
+                border-radius: 18px;
+                width: min(520px,100%);
+                max-height: 90vh;
+                overflow: auto;
+                box-shadow: 0 25px 70px rgba(0,0,0,.25)
+            }
+
+            .modalhead {
+                display: flex;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 20px;
+                border-bottom: 1px solid var(--line)
+            }
+
+            .modalhead h2 {
+                font-size: 18px;
+                margin: 0
+            }
+
+            .modalhead p {
+                font-size: 11px;
+                color: var(--muted);
+                margin: 5px 0 0
+            }
+
+            .close {
+                border: 0;
+                background: #f1f4ec;
+                width: 32px;
+                height: 32px;
+                border-radius: 9px;
+                font-size: 18px
+            }
+
+            .modalbody {
+                padding: 18px 20px 21px
+            }
+
+            .feedback-item {
+                display: grid;
+                grid-template-columns: minmax(0,1fr) 150px;
+                align-items: center;
+                gap: 10px;
+                padding: 9px 0;
+                border-bottom: 1px solid #eff1ea
+            }
+
+            .feedback-item:last-child {
+                border-bottom: 0
+            }
+
+            .feedback-item b {
+                font-size: 12px;
+                display: block
+            }
+
+            .feedback-item small {
+                font-size: 10px;
+                color: var(--muted)
+            }
+
+            .feedback-item select {
+                width: 100%;
+                font-size: 11px;
+                padding: 8px;
+                border: 1px solid var(--line);
+                border-radius: 9px;
+                background: #fbfcf8
+            }
+
+            .modal-actions {
+                display: flex;
+                gap: 9px;
+                margin-top: 18px
+            }
+
+            .modal-actions button {
+                flex: 1
+            }
+
+            .alert {
+                padding: 10px 12px;
+                background: #fff4e9;
+                color: #80512a;
+                border: 1px solid #f5dcc5;
+                border-radius: 10px;
+                font-size: 10px;
+                line-height: 1.5;
+                margin-top: 12px
+            }
+
+            @media(max-width: 900px) {
+                .columns {
+                    grid-template-columns:300px minmax(0,1fr);
+                    gap: 15px
+                }
+
+                .wrap {
+                    padding: 24px 15px 35px
+                }
+
+                .item {
+                    grid-template-columns: 25px minmax(0,1fr) 100px;
+                    gap: 9px
+                }
+
+                .stats {
+                    gap: 6px
+                }
+
+                .stat {
+                    padding: 9px
+                }
+
+                .stat b {
+                    font-size: 16px
+                }
+
+                .hero {
+                    align-items: flex-start;
+                    flex-direction: column
+                }
+
+                .local-note {
+                    white-space: normal
+                }
+            }
+
+            @media(max-width: 680px) {
+                .topbar {
+                    padding:0 16px;
+                    height: 65px
+                }
+
+                .topright {
+                    font-size: 10px
+                }
+
+                .wrap {
+                    padding: 22px 12px 34px
+                }
+
+                .hero h1 {
+                    font-size: 32px
+                }
+
+                .columns {
+                    grid-template-columns: 1fr
+                }
+
+                .formbody {
+                    padding: 17px
+                }
+
+                .panel-head {
+                    padding: 16px 17px
+                }
+
+                .summary {
+                    padding: 18px
+                }
+
+                .summary h2 {
+                    font-size: 21px
+                }
+
+                .lowergrid {
+                    grid-template-columns: 1fr
+                }
+
+                .list-head {
+                    align-items: flex-start;
+                    padding: 16px
+                }
+
+                .listactions {
+                    max-width: 120px
+                }
+
+                .item {
+                    grid-template-columns: 22px minmax(0,1fr) 96px;
+                    padding: 13px 1px;
+                    gap: 8px
+                }
+
+                .items {
+                    padding: 6px 12px 10px
+                }
+
+                .listfoot {
+                    align-items: flex-start;
+                    flex-direction: column;
+                    padding: 15px
+                }
+
+                .footbuttons {
+                    justify-content: flex-start;
+                    width: 100%
+                }
+
+                .footbuttons button {
+                    flex: 1
+                }
+
+                .stats {
+                    grid-template-columns: repeat(3,1fr)
+                }
+
+                .stat b {
+                    font-size: 16px
+                }
+
+                .footer {
+                    flex-direction: column
+                }
+
+                .feedback-item {
+                    grid-template-columns: minmax(0,1fr) 135px
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark">✳</div>
+                <div>
+                    juntada<span style="color:var(--green)">.</span>
+                    <small>ORGANIZÁ MEJOR, DESPERDICIÁ MENOS</small>
+                </div>
+            </div>
+            <div class="topright">
+                <span class="statusdot"></span>
+                Tu organizador de reuniones <span style="opacity:.45">·</span>
+                <span>2.0</span>
+            </div>
+        </header>
+        <main class="wrap">
+            <section class="hero">
+                <div>
+                    <div class="eyebrow">Menos cálculo. Más encuentro.</div>
+                    <h1>
+                        Que no falte nada.<br>
+                        Que no sobre <span>de más.</span>
+                    </h1>
+                    <p>Elegí entre 7 comidas para tu juntada, armá la lista de alimentos y productos, calculá el gasto y contale a la app qué pasó. La próxima vez, las cantidades se ajustan a tu experiencia.</p>
+                </div>
+                <div class="local-note">
+                    🔒 
+                    <span>
+                        <b>Privado por diseño</b>
+                        <br>Los datos se guardan en este navegador.
+                    </span>
+                </div>
+            </section>
+            <div class="columns">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div class="step">01</div>
+                        <div>
+                            <h2>Armemos el plan</h2>
+                            <p>Contanos qué estás organizando.</p>
+                        </div>
+                    </div>
+                    <form id="eventForm" class="formbody">
+                        <div class="field">
+                            <label for="eventName">
+                                Nombre de la juntada <span class="help">Opcional</span>
+                            </label>
+                            <input class="control" id="eventName" maxlength="60" placeholder="Ej. Asado del sábado">
+                        </div>
+                        <div class="field">
+                            <label for="eventType">¿Qué tipo de reunión es?</label>
+                            <select class="control" id="eventType">
+                                <option value="asado">🔥 Asado</option>
+                                <option value="pizza">🍕 Pizzas</option>
+                                <option value="empanadas">🥟 Empanadas</option>
+                                <option value="pastas">🍝 Fideos con tuco</option>
+                                <option value="pollo_disco">🍗 Pollo al disco</option>
+                                <option value="osobuco_disco">🥘 Osobuco al disco</option>
+                                <option value="picada">🧀 Picada</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>¿Cuántas personas vienen?</label>
+                            <div class="twocol">
+                                <div>
+                                    <label for="adults" style="font-size:10px;font-weight:600;color:var(--muted)">Adultos</label>
+                                    <input class="control" type="number" id="adults" min="0" max="300" value="8" required>
+                                </div>
+                                <div>
+                                    <label for="children" style="font-size:10px;font-weight:600;color:var(--muted)">Niños</label>
+                                    <input class="control" type="number" id="children" min="0" max="300" value="2" required>
+                                </div>
+                            </div>
+                            <div class="counterline">
+                                <span>Total de invitados</span>
+                                <b id="guestCount">10 personas</b>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="duration">¿Cuánto va a durar?</label>
+                            <select class="control" id="duration">
+                                <option value="2">Unas 2 horas</option>
+                                <option value="3">Unas 3 horas</option>
+                                <option value="4" selected>Unas 4 horas</option>
+                                <option value="5">Unas 5 horas</option>
+                                <option value="6">6 horas o más</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>¿Qué tan buen apetito tiene el grupo?</label>
+                            <div class="segments">
+                                <label>
+                                    <input type="radio" name="appetite" value="light">Tranqui
+                                </label>
+                                <label>
+                                    <input type="radio" name="appetite" value="normal" checked>Normal
+                                </label>
+                                <label>
+                                    <input type="radio" name="appetite" value="hungry">¡Con hambre!
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="budget">
+                                Presupuesto total <span class="help">Opcional · ARS</span>
+                            </label>
+                            <input class="control" type="number" id="budget" min="0" step="500" placeholder="Ej. 60000">
+                            <div class="counterline">
+                                <span>Lo comparamos con los precios que cargues.</span>
+                            </div>
+                        </div>
+                        <button class="primary full" type="submit">
+                            Calcular mi lista <span>↗</span>
+                        </button>
+                    </form>
+                </section>
+                <div class="rightcol">
+                    <section class="summary" aria-live="polite">
+                        <div class="sumtop">
+                            <div>
+                                <div class="sumlabel">Tu próxima juntada</div>
+                                <h2 id="summaryName">Asado entre amigos</h2>
+                                <div class="sumdesc" id="summaryDesc">10 personas · 4 horas · apetito normal</div>
+                            </div>
+                            <div class="tag" id="typeTag">🔥 ASADO</div>
+                        </div>
+                        <div class="stats">
+                            <div class="stat">
+                                <b id="statGuests">10</b>
+                                <span>invitados</span>
+                            </div>
+                            <div class="stat">
+                                <b id="statItems">6</b>
+                                <span>productos</span>
+                            </div>
+                            <div class="stat">
+                                <b id="statCost">—</b>
+                                <span>gasto estimado</span>
+                            </div>
+                        </div>
+                        <div class="budgetline">
+                            <span id="budgetText">Cargá precios para estimar el gasto</span>
+                            <div class="budgetbar">
+                                <span id="budgetBar"></span>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="panel listpanel">
+                        <div class="list-head">
+                            <div>
+                                <div class="list-title">Tu lista de compras</div>
+                                <div class="list-meta" id="listMeta">Cantidades estimadas para tu grupo</div>
+                            </div>
+                            <div class="listactions">
+                                <button class="subtle-btn" id="uncheckAll" type="button">Desmarcar todo</button>
+                            </div>
+                        </div>
+                        <div class="progress-wrap">
+                            <div class="progress-label">
+                                <span id="progressText">0 de 6 productos listos</span>
+                                <span id="progressPct">0%</span>
+                            </div>
+                            <div class="progress">
+                                <span id="progressBar"></span>
+                            </div>
+                        </div>
+                        <div id="items" class="items"></div>
+                        <div class="listfoot">
+                            <div>
+                                <div class="total-label">Total de los productos con precio cargado</div>
+                                <div class="total-value" id="totalCost">$ 0</div>
+                                <div class="total-note" id="totalNote">Agregá precios unitarios para calcular el total.</div>
+                            </div>
+                            <div class="footbuttons">
+                                <button class="subtle-btn" id="copyList" type="button">↗ Copiar lista</button>
+                                <button class="primary" id="reportBtn" type="button">
+                                    ¿Cómo salió? <span>↗</span>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <section class="lowergrid">
+                <div class="panel info-panel">
+                    <div class="info-title">
+                        <div class="info-icon">🧠</div>
+                        <h3>La app aprende de tus juntadas</h3>
+                    </div>
+                    <p>Después de reunirse, registrá si sobró, alcanzó justo o faltó cada producto. En una próxima reunión del mismo tipo, Juntada 2.0 ajustará las cantidades con esa experiencia. No usa IA ni necesita internet.</p>
+                    <button class="subtle-btn" id="reportBtn2" type="button">Registrar cómo salió ↗</button>
+                    <div class="alert">Las cantidades son estimaciones iniciales, no reglas exactas. El apetito, el menú y las costumbres de tu grupo cambian mucho el resultado.</div>
+                </div>
+                <div class="panel info-panel">
+                    <div class="info-title">
+                        <div class="info-icon">📚</div>
+                        <h3>Lo que aprendimos</h3>
+                    </div>
+                    <p>Tu historial queda guardado en este navegador para mejorar las próximas recomendaciones.</p>
+                    <div id="history" class="historylist">
+                        <div class="nohistory">Todavía no registraste ninguna juntada.</div>
+                    </div>
+                    <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px;align-items:center">
+                        <span id="historyCount" style="font-size:10px;color:var(--muted)">0 experiencias guardadas</span>
+                        <button class="subtle-btn" id="resetData" type="button">Borrar mis datos</button>
+                    </div>
+                </div>
+            </section>
+            <footer class="footer">
+                <span>JUNTADA 2.0 · PROTOTIPO</span>
+                <span>Hecho para organizar mejor los encuentros cotidianos.</span>
+                <span>Los precios los cargás vos.</span>
+            </footer>
+        </main>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        <div class="modal-backdrop" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal">
+                <div class="modalhead">
+                    <div>
+                        <h2 id="modalTitle">¿Cómo salió la juntada?</h2>
+                        <p>Tu experiencia ayuda a calcular mejor la próxima.</p>
+                    </div>
+                    <button class="close" id="closeModal" type="button" aria-label="Cerrar">×</button>
+                </div>
+                <div class="modalbody">
+                    <div id="feedbackList"></div>
+                    <div class="alert">Elegí lo que pasó con cada producto. La app ajustará de forma gradual las cantidades para futuras reuniones de este tipo.</div>
+                    <div class="modal-actions">
+                        <button class="subtle-btn" id="cancelReport" type="button">Cancelar</button>
+                        <button class="primary" id="saveReport" type="button">Guardar experiencia ↗</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            ( () => {
+                const STORAGE_KEY = 'juntada20_v1';
+                const $ = id => document.getElementById(id);
+                const typeLabels = {
+                    asado: 'Asado',
+                    hamburguesada: 'Hamburguesada',
+                    pizza: 'Pizzas',
+                    tacos: 'Noche de tacos',
+                    pastas: 'Fideos con tuco',
+                    picada: 'Picada',
+                    empanadas: 'Empanadas',
+                    pollo_disco: 'Pollo al disco',
+                    osobuco_disco: 'Osobuco al disco',
+                    cumple: 'Cumpleaños',
+                    merienda: 'Merienda',
+                    desayuno: 'Desayuno o brunch',
+                    vegetariana: 'Comida vegetariana'
+                };
+                const typeEmoji = {
+                    asado: '🔥',
+                    hamburguesada: '🍔',
+                    pizza: '🍕',
+                    tacos: '🌮',
+                    pastas: '🍝',
+                    picada: '🧀',
+                    cumple: '🎂',
+                    merienda: '🧉',
+                    desayuno: '🥐',
+                    vegetariana: '🥗',
+                    empanadas: '🥟',
+                    pollo_disco: '🍗',
+                    osobuco_disco: '🥘'
+                };
+                const appetiteFactor = {
+                    light: 0.84,
+                    normal: 1,
+                    hungry: 1.18
+                };
+                const appetiteLabels = {
+                    light: 'apetito tranqui',
+                    normal: 'apetito normal',
+                    hungry: 'buen apetito'
+                };
+                const feedbackOptions = [['just', 'Alcanzó justo'], ['little_left', 'Sobró un poco'], ['some_left', 'Sobró bastante'], ['lots_left', 'Sobró mucho'], ['short', 'Faltó']];
+                const feedbackFactor = {
+                    just: 1,
+                    little_left: 0.95,
+                    some_left: 0.86,
+                    lots_left: 0.72,
+                    short: 1.14
+                };
+                const feedbackLabels = {
+                    just: 'Justo',
+                    little_left: 'Sobró poco',
+                    some_left: 'Sobró bastante',
+                    lots_left: 'Sobró mucho',
+                    short: 'Faltó'
+                };
+                const definitions = {
+                    asado: [{
+                        key: 'meat',
+                        name: 'Carne para asar',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Estimación de carne; depende del corte y los acompañamientos.',
+                        adult: .42,
+                        child: .23,
+                        food: true
+                    }, {
+                        key: 'chorizo',
+                        name: 'Chorizos',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Aproximadamente uno por adulto, menos para niños.',
+                        adult: .8,
+                        child: .35,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'morcilla',
+                        name: 'Morcillas',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Opcional; ajustá según los gustos del grupo.',
+                        adult: .30,
+                        child: .12,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'provoleta',
+                        name: 'Provoletas',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Una porción para compartir; es opcional.',
+                        adult: .18,
+                        child: .10,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'bread',
+                        name: 'Pan',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para acompañar la comida.',
+                        adult: .10,
+                        child: .07,
+                        food: true
+                    }, {
+                        key: 'salad',
+                        name: 'Ensaladas y verduras',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Acompañamientos variados.',
+                        adult: .18,
+                        child: .12,
+                        food: true
+                    }, {
+                        key: 'chimichurri',
+                        name: 'Chimichurri y salsas',
+                        unit: 'frasco',
+                        priceUnit: 'frasco',
+                        desc: 'Cantidad orientativa; podés ajustar si preparás salsas caseras.',
+                        adult: .10,
+                        child: .05,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'charcoal',
+                        name: 'Carbón o leña',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Depende de la parrilla, el fuego y la duración.',
+                        adult: .30,
+                        child: .14,
+                        food: false
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas; ajustá según lo que tome tu grupo.',
+                        adult: .85,
+                        child: .60,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'La cantidad varía según el clima y cómo enfríes las bebidas.',
+                        adult: .20,
+                        child: .12,
+                        food: false
+                    }, {
+                        key: 'cake',
+                        name: 'Postre o algo dulce',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Una porción pequeña por persona.',
+                        adult: .12,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'unid.',
+                        priceUnit: 'paquete',
+                        desc: 'Paquetes de servilletas para la mesa.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    hamburguesada: [{
+                        key: 'burger_patties',
+                        name: 'Medallones para hamburguesa',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Uno por persona y algo extra para quienes comen más.',
+                        adult: 1.25,
+                        child: .8,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'burger_buns',
+                        name: 'Pan de hamburguesa',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Elegí panes del tamaño adecuado para los medallones.',
+                        adult: 1.25,
+                        child: .8,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'burger_cheese',
+                        name: 'Fetas de queso',
+                        unit: 'unid.',
+                        priceUnit: 'feta',
+                        desc: 'Opcional; una o dos fetas por hamburguesa.',
+                        adult: 1.5,
+                        child: 1,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'burger_veg',
+                        name: 'Lechuga y tomate',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Verduras frescas para armar las hamburguesas.',
+                        adult: .09,
+                        child: .06,
+                        food: true
+                    }, {
+                        key: 'fries',
+                        name: 'Papas fritas',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Acompañamiento opcional.',
+                        adult: .16,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'condiments',
+                        name: 'Kétchup, mayonesa y mostaza',
+                        unit: 'frasco',
+                        priceUnit: 'frasco',
+                        desc: 'Salsas para acompañar; ajustá según lo que ya tengas.',
+                        adult: .10,
+                        child: .06,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .80,
+                        child: .55,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Según clima y refrigeración.',
+                        adult: .18,
+                        child: .12,
+                        food: false
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'unid.',
+                        priceUnit: 'paquete',
+                        desc: 'Para comer sin ensuciarse.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'trashbags',
+                        name: 'Bolsas de residuos',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Para juntar los residuos al terminar.',
+                        adult: .08,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    pizza: [{
+                        key: 'pizza',
+                        name: 'Pizzas grandes',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Estimación para pizzas de unas 8 porciones; ajustá si habrá otros platos.',
+                        adult: .38,
+                        child: .24,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'faina',
+                        name: 'Fainá',
+                        unit: 'porciones',
+                        priceUnit: 'porción',
+                        desc: 'Opcional para acompañar las porciones de pizza.',
+                        adult: .25,
+                        child: .15,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'snacks',
+                        name: 'Snacks para picar',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Papas, palitos u otros snacks para antes de comer.',
+                        adult: .06,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'pizza_salad',
+                        name: 'Ensalada para acompañar',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional para sumar una alternativa fresca.',
+                        adult: .10,
+                        child: .07,
+                        food: true
+                    }, {
+                        key: 'olives',
+                        name: 'Aceitunas y toppings extra',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Aceitunas, morrones u otros ingredientes extra.',
+                        adult: .025,
+                        child: .015,
+                        food: true
+                    }, {
+                        key: 'pizza_condiments',
+                        name: 'Orégano, ají molido y salsas',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Condimentos para la mesa; descontá lo que ya tengas.',
+                        adult: .10,
+                        child: .06,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .75,
+                        child: .50,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Ajustá según clima y refrigeración.',
+                        adult: .16,
+                        child: .10,
+                        food: false
+                    }, {
+                        key: 'dessert',
+                        name: 'Postre o helado',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Algo dulce para terminar.',
+                        adult: .12,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'cups',
+                        name: 'Vasos descartables',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Estimación de un paquete cada 10 personas.',
+                        adult: .10,
+                        child: .10,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Para la mesa y la comida.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'trashbags',
+                        name: 'Bolsas de residuos',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Para juntar los residuos al terminar.',
+                        adult: .08,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    tacos: [{
+                        key: 'tortillas',
+                        name: 'Tortillas para tacos',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Calculá unas 2 a 3 por adulto como referencia.',
+                        adult: 2.5,
+                        child: 1.7,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'taco_protein',
+                        name: 'Carne o proteína para el relleno',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Carne, pollo o una alternativa vegetal.',
+                        adult: .17,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'taco_beans',
+                        name: 'Porotos o frijoles',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Acompañamiento o relleno adicional.',
+                        adult: .06,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'taco_cheese',
+                        name: 'Queso rallado',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para agregar al gusto.',
+                        adult: .04,
+                        child: .025,
+                        food: true
+                    }, {
+                        key: 'taco_veg',
+                        name: 'Tomate, cebolla y lechuga',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Verduras para armar los tacos.',
+                        adult: .10,
+                        child: .07,
+                        food: true
+                    }, {
+                        key: 'taco_salsa',
+                        name: 'Salsas',
+                        unit: 'frasco',
+                        priceUnit: 'frasco',
+                        desc: 'Salsa suave o picante, según los gustos.',
+                        adult: .10,
+                        child: .05,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .75,
+                        child: .50,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Según clima y refrigeración.',
+                        adult: .16,
+                        child: .10,
+                        food: false
+                    }],
+                    pastas: [{
+                        key: 'dry_pasta',
+                        name: 'Fideos secos',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Fideos para plato principal; ajustá según los acompañamientos.',
+                        adult: .12,
+                        child: .08,
+                        food: true
+                    }, {
+                        key: 'tuco_tomato',
+                        name: 'Puré o salsa de tomate',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Base del tuco.',
+                        adult: .12,
+                        child: .08,
+                        food: true
+                    }, {
+                        key: 'tuco_meat',
+                        name: 'Carne picada para el tuco',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional; podés preparar un tuco sin carne.',
+                        adult: .08,
+                        child: .05,
+                        food: true
+                    }, {
+                        key: 'tuco_onion',
+                        name: 'Cebolla',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para la salsa.',
+                        adult: .035,
+                        child: .025,
+                        food: true
+                    }, {
+                        key: 'tuco_carrot',
+                        name: 'Zanahoria',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional para darle cuerpo al tuco.',
+                        adult: .025,
+                        child: .015,
+                        food: true
+                    }, {
+                        key: 'tuco_garlic',
+                        name: 'Ajo y condimentos',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Ajo, laurel, pimentón, sal y otros condimentos.',
+                        adult: .10,
+                        child: .06,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'grated_cheese',
+                        name: 'Queso rallado',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para servir en la mesa.',
+                        adult: .02,
+                        child: .015,
+                        food: true
+                    }, {
+                        key: 'pasta_bread',
+                        name: 'Pan',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional para acompañar.',
+                        adult: .07,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'pasta_salad',
+                        name: 'Ensalada',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Acompañamiento fresco opcional.',
+                        adult: .10,
+                        child: .07,
+                        food: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .70,
+                        child: .50,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'dessert',
+                        name: 'Postre o fruta',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Algo dulce para terminar.',
+                        adult: .10,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Estimación de paquetes para la mesa.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    empanadas: [{
+                        key: 'emp_meat',
+                        name: 'Empanadas de carne',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Sabor principal; horneadas o fritas.',
+                        adult: 2,
+                        child: 1,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'emp_hamcheese',
+                        name: 'Empanadas de jamón y queso',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Para ofrecer una segunda variedad.',
+                        adult: .75,
+                        child: .60,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'emp_chicken',
+                        name: 'Empanadas de pollo o verdura',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Tercera variedad opcional; elegí según tu grupo.',
+                        adult: .50,
+                        child: .40,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'emp_dips',
+                        name: 'Salsa criolla o chimichurri',
+                        unit: 'frascos',
+                        priceUnit: 'frasco',
+                        desc: 'Opcional para acompañar.',
+                        adult: .10,
+                        child: .05,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'emp_salad',
+                        name: 'Ensalada fresca',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Tomate, lechuga y otros vegetales.',
+                        adult: .10,
+                        child: .07,
+                        food: true
+                    }, {
+                        key: 'emp_snacks',
+                        name: 'Snacks para picar',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional para esperar la comida.',
+                        adult: .04,
+                        child: .03,
+                        food: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .75,
+                        child: .50,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Según clima y refrigeración.',
+                        adult: .16,
+                        child: .10,
+                        food: false
+                    }, {
+                        key: 'dessert',
+                        name: 'Postre o helado',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional para terminar.',
+                        adult: .12,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Estimación de paquetes para la mesa.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'trashbags',
+                        name: 'Bolsas de residuos',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Para juntar los residuos.',
+                        adult: .08,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    pollo_disco: [{
+                        key: 'disco_chicken',
+                        name: 'Pollo trozado',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Pieza principal; puede ser pollo entero trozado.',
+                        adult: .40,
+                        child: .25,
+                        food: true
+                    }, {
+                        key: 'disco_potatoes',
+                        name: 'Papas',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para cocinar junto con el pollo.',
+                        adult: .18,
+                        child: .12,
+                        food: true
+                    }, {
+                        key: 'disco_onions',
+                        name: 'Cebollas',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Base del sabor del disco.',
+                        adult: .06,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'disco_peppers',
+                        name: 'Morrón',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Rojo o verde, según preferencia.',
+                        adult: .05,
+                        child: .03,
+                        food: true
+                    }, {
+                        key: 'disco_carrots',
+                        name: 'Zanahorias',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para sumar verduras al disco.',
+                        adult: .04,
+                        child: .025,
+                        food: true
+                    }, {
+                        key: 'disco_tomato',
+                        name: 'Tomate o puré de tomate',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para la salsa de cocción.',
+                        adult: .06,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'disco_liquid',
+                        name: 'Caldo o vino para cocinar',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Elegí caldo, vino o una combinación según tu receta.',
+                        adult: .10,
+                        child: .05,
+                        food: false
+                    }, {
+                        key: 'disco_seasoning',
+                        name: 'Ajo y condimentos',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Ajo, pimentón, orégano, sal y pimienta.',
+                        adult: .10,
+                        child: .06,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'disco_bread',
+                        name: 'Pan',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional para acompañar.',
+                        adult: .07,
+                        child: .05,
+                        food: true
+                    }, {
+                        key: 'disco_salad',
+                        name: 'Ensalada',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Acompañamiento fresco opcional.',
+                        adult: .10,
+                        child: .07,
+                        food: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .75,
+                        child: .50,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Según clima y refrigeración.',
+                        adult: .15,
+                        child: .10,
+                        food: false
+                    }, {
+                        key: 'dessert',
+                        name: 'Postre o fruta',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Algo dulce para terminar.',
+                        adult: .10,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Para la mesa.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    osobuco_disco: [{
+                        key: 'osso_meat',
+                        name: 'Osobuco',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Corte principal; la cantidad depende del hueso y del tamaño de las porciones.',
+                        adult: .45,
+                        child: .28,
+                        food: true
+                    }, {
+                        key: 'osso_potatoes',
+                        name: 'Papas',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para cocinar junto con el osobuco.',
+                        adult: .16,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'osso_onions',
+                        name: 'Cebollas',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Base de la preparación.',
+                        adult: .06,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'osso_carrots',
+                        name: 'Zanahorias',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para sumar sabor y verduras.',
+                        adult: .05,
+                        child: .03,
+                        food: true
+                    }, {
+                        key: 'osso_peppers',
+                        name: 'Morrón',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Rojo o verde.',
+                        adult: .05,
+                        child: .03,
+                        food: true
+                    }, {
+                        key: 'osso_tomato',
+                        name: 'Tomate o puré de tomate',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para la salsa.',
+                        adult: .10,
+                        child: .06,
+                        food: true
+                    }, {
+                        key: 'osso_liquid',
+                        name: 'Caldo o vino para cocinar',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Para la cocción lenta; elegí según tu receta.',
+                        adult: .10,
+                        child: .05,
+                        food: false
+                    }, {
+                        key: 'osso_seasoning',
+                        name: 'Ajo y condimentos',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Ajo, laurel, pimentón, sal y pimienta.',
+                        adult: .10,
+                        child: .06,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'osso_polenta',
+                        name: 'Polenta o arroz seco',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Guarnición opcional para acompañar la salsa.',
+                        adult: .09,
+                        child: .06,
+                        food: true
+                    }, {
+                        key: 'osso_bread',
+                        name: 'Pan',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional para acompañar.',
+                        adult: .06,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'osso_salad',
+                        name: 'Ensalada',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Acompañamiento fresco opcional.',
+                        adult: .08,
+                        child: .05,
+                        food: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .75,
+                        child: .50,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Según clima y refrigeración.',
+                        adult: .15,
+                        child: .10,
+                        food: false
+                    }, {
+                        key: 'dessert',
+                        name: 'Postre o fruta',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Algo dulce para terminar.',
+                        adult: .10,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'paquetes',
+                        priceUnit: 'paquete',
+                        desc: 'Para la mesa.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    picada: [{
+                        key: 'coldcuts',
+                        name: 'Fiambres',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Jamón, salame y otros fiambres.',
+                        adult: .10,
+                        child: .06,
+                        food: true
+                    }, {
+                        key: 'cheese',
+                        name: 'Quesos',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Variedad de quesos para compartir.',
+                        adult: .09,
+                        child: .05,
+                        food: true
+                    }, {
+                        key: 'bread',
+                        name: 'Pan y grisines',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Pan, grisines o tostadas.',
+                        adult: .14,
+                        child: .09,
+                        food: true
+                    }, {
+                        key: 'snacks',
+                        name: 'Snacks y extras',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Papas y otros acompañamientos.',
+                        adult: .06,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'olives',
+                        name: 'Aceitunas y encurtidos',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Pepinitos, aceitunas y otros encurtidos.',
+                        adult: .035,
+                        child: .02,
+                        food: true
+                    }, {
+                        key: 'spreads',
+                        name: 'Dips y untables',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Hummus, queso untable y salsas.',
+                        adult: .045,
+                        child: .025,
+                        food: true
+                    }, {
+                        key: 'nuts',
+                        name: 'Frutos secos',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional; revisá alergias del grupo.',
+                        adult: .025,
+                        child: .015,
+                        food: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .70,
+                        child: .50,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Según clima y refrigeración.',
+                        adult: .15,
+                        child: .10,
+                        food: false
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'unid.',
+                        priceUnit: 'paquete',
+                        desc: 'Para compartir la picada.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    cumple: [{
+                        key: 'pizza',
+                        name: 'Pizzas grandes',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Una opción fácil para compartir; ajustá si habrá otro plato.',
+                        adult: .30,
+                        child: .22,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'snacks',
+                        name: 'Snacks para picar',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Papas, palitos y otros snacks.',
+                        adult: .06,
+                        child: .04,
+                        food: true
+                    }, {
+                        key: 'cake',
+                        name: 'Torta',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Porciones de alrededor de 120 g como referencia.',
+                        adult: .12,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'birthday_candles',
+                        name: 'Velitas para la torta',
+                        unit: 'unid.',
+                        priceUnit: 'paquete',
+                        desc: 'Estimación de un paquete cada 10 personas aproximadamente.',
+                        adult: .10,
+                        child: .10,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .80,
+                        child: .55,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'ice',
+                        name: 'Hielo',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Según clima y refrigeración.',
+                        adult: .18,
+                        child: .12,
+                        food: false
+                    }, {
+                        key: 'plates',
+                        name: 'Platos descartables',
+                        unit: 'unid.',
+                        priceUnit: 'paquete',
+                        desc: 'Uno por invitado como base.',
+                        adult: .10,
+                        child: .10,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'cups',
+                        name: 'Vasos descartables',
+                        unit: 'unid.',
+                        priceUnit: 'paquete',
+                        desc: 'Calculá unos cuantos por persona.',
+                        adult: .20,
+                        child: .15,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'napkins',
+                        name: 'Servilletas',
+                        unit: 'unid.',
+                        priceUnit: 'paquete',
+                        desc: 'Paquetes para la mesa.',
+                        adult: .10,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }, {
+                        key: 'trashbags',
+                        name: 'Bolsas de residuos',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Para dejar el espacio limpio al terminar.',
+                        adult: .08,
+                        child: .08,
+                        food: false,
+                        integer: true
+                    }],
+                    merienda: [{
+                        key: 'facturas',
+                        name: 'Facturas o medialunas',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Estimación de 1 a 3 por persona según el apetito.',
+                        adult: 2,
+                        child: 1.5,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'merienda_cake',
+                        name: 'Pastafrola o budín',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Algo dulce para compartir.',
+                        adult: .10,
+                        child: .08,
+                        food: true
+                    }, {
+                        key: 'sandwiches',
+                        name: 'Sándwiches',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Opcionales si la merienda también reemplaza una comida.',
+                        adult: .7,
+                        child: .5,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'coffee',
+                        name: 'Café o té preparado',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Puede ser menos si la mayoría toma mate.',
+                        adult: .20,
+                        child: .08,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'milk',
+                        name: 'Leche',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Para mate cocido, té o café con leche.',
+                        adult: .10,
+                        child: .18,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'juice',
+                        name: 'Jugo',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Otra opción de bebida sin alcohol.',
+                        adult: .25,
+                        child: .22,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'snacks',
+                        name: 'Snacks salados',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional para combinar con lo dulce.',
+                        adult: .04,
+                        child: .035,
+                        food: true
+                    }],
+                    desayuno: [{
+                        key: 'breakfast_pastries',
+                        name: 'Medialunas o panificados',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Piezas de panadería para acompañar el desayuno.',
+                        adult: 2,
+                        child: 1.5,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'toast_bread',
+                        name: 'Pan para tostadas',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Pan lactal o pan para tostar.',
+                        adult: .08,
+                        child: .05,
+                        food: true
+                    }, {
+                        key: 'breakfast_spread',
+                        name: 'Manteca y mermelada',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Untables para las tostadas.',
+                        adult: .03,
+                        child: .025,
+                        food: true
+                    }, {
+                        key: 'eggs',
+                        name: 'Huevos',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Opcionales para un desayuno más completo.',
+                        adult: 1,
+                        child: .6,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'fruit',
+                        name: 'Fruta fresca',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Fruta de estación cortada o entera.',
+                        adult: .12,
+                        child: .10,
+                        food: true
+                    }, {
+                        key: 'coffee',
+                        name: 'Café o té preparado',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Estimación para tazas pequeñas.',
+                        adult: .22,
+                        child: .08,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'milk',
+                        name: 'Leche',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Para café, té o chocolatada.',
+                        adult: .10,
+                        child: .18,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'juice',
+                        name: 'Jugo',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Bebida fría para acompañar.',
+                        adult: .20,
+                        child: .20,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'yogurt',
+                        name: 'Yogur',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Opcional; un pote por persona que lo consuma.',
+                        adult: .5,
+                        child: .7,
+                        food: true,
+                        integer: true
+                    }],
+                    vegetariana: [{
+                        key: 'veggie_burgers',
+                        name: 'Medallones vegetarianos',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Hamburguesas vegetales o de legumbres.',
+                        adult: 1.2,
+                        child: .8,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'veggie_grains',
+                        name: 'Legumbres cocidas',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Garbanzos, lentejas o porotos como base del menú.',
+                        adult: .10,
+                        child: .07,
+                        food: true
+                    }, {
+                        key: 'veggie_veg',
+                        name: 'Verduras para cocinar',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Zapallito, berenjena, morrón, cebolla u otras.',
+                        adult: .18,
+                        child: .12,
+                        food: true
+                    }, {
+                        key: 'veggie_salad',
+                        name: 'Ensaladas',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Hojas verdes, tomate y otros vegetales frescos.',
+                        adult: .12,
+                        child: .08,
+                        food: true
+                    }, {
+                        key: 'veggie_bread',
+                        name: 'Pan o wraps',
+                        unit: 'unid.',
+                        priceUnit: 'unidad',
+                        desc: 'Para acompañar o preparar sándwiches y wraps.',
+                        adult: 1,
+                        child: .7,
+                        food: true,
+                        integer: true
+                    }, {
+                        key: 'veggie_cheese',
+                        name: 'Queso o alternativa vegetal',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Opcional según el menú y las preferencias.',
+                        adult: .05,
+                        child: .035,
+                        food: true
+                    }, {
+                        key: 'hummus',
+                        name: 'Hummus o dip de legumbres',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Para picar o acompañar las verduras.',
+                        adult: .05,
+                        child: .03,
+                        food: true
+                    }, {
+                        key: 'drinks',
+                        name: 'Bebidas sin alcohol',
+                        unit: 'L',
+                        priceUnit: 'litro',
+                        desc: 'Agua y gaseosas.',
+                        adult: .75,
+                        child: .50,
+                        food: false,
+                        drink: true
+                    }, {
+                        key: 'fruit',
+                        name: 'Fruta o postre',
+                        unit: 'kg',
+                        priceUnit: 'kg',
+                        desc: 'Algo dulce para terminar.',
+                        adult: .10,
+                        child: .10,
+                        food: true
+                    }]
+                };
+                const defaults = {
+                    settings: {
+                        name: '',
+                        type: 'asado',
+                        adults: 8,
+                        children: 2,
+                        duration: 4,
+                        appetite: 'normal',
+                        budget: ''
+                    },
+                    plan: null,
+                    history: [],
+                    prices: {}
+                };
+                const selectableTypes = ['asado', 'pizza', 'empanadas', 'pastas', 'pollo_disco', 'osobuco_disco', 'picada'];
+                let state = loadState();
+                // Si había una categoría antigua guardada, volver a Asado sin borrar el historial ni los precios.
+                if (!selectableTypes.includes(state.settings.type)) {
+                    state.settings.type = 'asado';
+                    state.settings.name = '';
+                    state.plan = null;
+                }
+                let toastTimer;
+
+                function loadState() {
+                    try {
+                        const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+                        if (!raw || typeof raw !== 'object')
+                            return structuredClone(defaults);
+                        return {
+                            settings: {
+                                ...defaults.settings,
+                                ...(raw.settings || {})
+                            },
+                            plan: raw.plan && Array.isArray(raw.plan.items) ? raw.plan : null,
+                            history: Array.isArray(raw.history) ? raw.history : [],
+                            prices: raw.prices && typeof raw.prices === 'object' ? raw.prices : {}
+                        };
+                    } catch (e) {
+                        return structuredClone(defaults);
+                    }
+                }
+                function persist() {
+                    try {
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+                    } catch (e) {
+                        showToast('No se pudo guardar en este navegador. Podés seguir usando la app mientras esté abierta.');
+                    }
+                }
+                function showToast(message) {
+                    const el = $('toast');
+                    el.textContent = message;
+                    el.classList.add('show');
+                    clearTimeout(toastTimer);
+                    toastTimer = setTimeout( () => el.classList.remove('show'), 2700);
+                }
+                function clamp(n, min, max) {
+                    return Math.min(max, Math.max(min, n));
+                }
+                function getSettings() {
+                    const adults = clamp(parseInt($('adults').value, 10) || 0, 0, 300);
+                    const children = clamp(parseInt($('children').value, 10) || 0, 0, 300);
+                    return {
+                        name: $('eventName').value.trim() || typeLabels[$('eventType').value],
+                        type: $('eventType').value,
+                        adults,
+                        children,
+                        duration: parseInt($('duration').value, 10) || 4,
+                        appetite: document.querySelector('input[name="appetite"]:checked')?.value || 'normal',
+                        budget: Math.max(0, Number($('budget').value) || 0)
+                    };
+                }
+                function getFeedbackAdjustment(type, key) {
+                    const values = [];
+                    for (const record of state.history) {
+                        if (record.type === type && record.feedback && record.feedback[key])
+                            values.push(feedbackFactor[record.feedback[key]] || 1);
+                    }
+                    if (!values.length)
+                        return 1;
+                    // Aprendizaje gradual: se usa un promedio moderado, no un cambio extremo.
+                    const avg = values.reduce( (a, b) => a + b, 0) / values.length;
+                    return clamp(1 + (avg - 1) * 0.75, 0.70, 1.15);
+                }
+                function roundQty(value, integer) {
+                    if (integer)
+                        return Math.max(1, Math.ceil(value));
+                    return Math.max(0.1, Math.ceil(value * 10) / 10);
+                }
+                function calculate(settings) {
+                    const people = settings.adults + settings.children;
+                    const appetite = appetiteFactor[settings.appetite] || 1;
+                    const durationFactor = 1 + Math.max(0, settings.duration - 4) * 0.045;
+                    const shortDuration = settings.duration < 4 ? Math.max(.75, settings.duration / 4) : 1;
+                    return definitions[settings.type].map(def => {
+                        const multiplier = getFeedbackAdjustment(settings.type, def.key);
+                        const base = (settings.adults * def.adult) + (settings.children * def.child);
+                        const timeFactor = def.drink ? (settings.duration / 4) : (def.food ? durationFactor : 1);
+                        const appetiteMultiplier = def.food ? appetite : (def.drink ? (0.90 + appetite * .10) : 1);
+                        const quantity = people === 0 ? 0 : roundQty(base * timeFactor * shortDuration * appetiteMultiplier * multiplier, !!def.integer);
+                        const price = Number(state.prices[def.key]) || 0;
+                        return {
+                            ...def,
+                            quantity,
+                            price,
+                            cost: price * quantity,
+                            adjusted: Math.abs(multiplier - 1) > .025,
+                            adjustment: multiplier,
+                            purchased: !!(state.plan?.items?.find(i => i.key === def.key)?.purchased)
+                        };
+                    }
+                    );
+                }
+                function currency(n) {
+                    return new Intl.NumberFormat('es-AR',{
+                        style: 'currency',
+                        currency: 'ARS',
+                        maximumFractionDigits: 0
+                    }).format(n || 0);
+                }
+                function formatQty(n) {
+                    return Number.isInteger(n) ? String(n) : n.toLocaleString('es-AR', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1
+                    });
+                }
+                function esc(value) {
+                    return String(value ?? '').replace(/[&<>"']/g, c => ({
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        '"': '&quot;',
+                        "'": '&#39;'
+                    }[c]));
+                }
+                function saveCurrentPlan(settings, items) {
+                    state.settings = settings;
+                    state.plan = {
+                        name: settings.name,
+                        type: settings.type,
+                        adults: settings.adults,
+                        children: settings.children,
+                        duration: settings.duration,
+                        appetite: settings.appetite,
+                        budget: settings.budget,
+                        items: items.map(i => ({
+                            key: i.key,
+                            purchased: !!i.purchased
+                        }))
+                    };
+                    persist();
+                }
+                function updateGuestCount() {
+                    const total = Math.max(0, Number($('adults').value) || 0) + Math.max(0, Number($('children').value) || 0);
+                    $('guestCount').textContent = total + ' ' + (total === 1 ? 'persona' : 'personas');
+                }
+                function fillForm(settings) {
+                    $('eventName').value = settings.name || '';
+                    $('eventType').value = settings.type || 'asado';
+                    $('adults').value = settings.adults ?? 8;
+                    $('children').value = settings.children ?? 2;
+                    $('duration').value = String(settings.duration || 4);
+                    $('budget').value = settings.budget || '';
+                    const radio = document.querySelector(`input[name="appetite"][value="${settings.appetite || 'normal'}"]`);
+                    if (radio)
+                        radio.checked = true;
+                    updateGuestCount();
+                }
+                function render() {
+                    const settings = state.settings;
+                    const items = calculate(settings);
+                    // Conservar el estado comprado solo para las categorías que siguen en la lista.
+                    if (state.plan?.items) {
+                        items.forEach(item => {
+                            const old = state.plan.items.find(x => x.key === item.key);
+                            if (old)
+                                item.purchased = !!old.purchased;
+                        }
+                        );
+                    }
+                    saveCurrentPlan(settings, items);
+                    const people = settings.adults + settings.children;
+                    $('summaryName').textContent = settings.name || typeLabels[settings.type];
+                    $('summaryDesc').textContent = `${people} ${people === 1 ? 'persona' : 'personas'} · ${settings.duration} ${settings.duration === 1 ? 'hora' : 'horas'} · ${appetiteLabels[settings.appetite]}`;
+                    $('typeTag').textContent = `${typeEmoji[settings.type]} ${typeLabels[settings.type].toUpperCase()}`;
+                    $('statGuests').textContent = people;
+                    $('statItems').textContent = items.length;
+                    const pricedTotal = items.reduce( (sum, i) => sum + i.cost, 0);
+                    const priceCount = items.filter(i => i.price > 0).length;
+                    $('statCost').textContent = priceCount === items.length ? currency(pricedTotal) : (priceCount ? 'Parcial' : '—');
+                    $('totalCost').textContent = currency(pricedTotal);
+                    $('totalNote').textContent = priceCount === items.length ? 'Estimación con todos los precios cargados' : `${priceCount} de ${items.length} productos con precio cargado`;
+                    if (settings.budget > 0) {
+                        const ratio = pricedTotal / settings.budget;
+                        $('budgetText').textContent = priceCount === items.length ? `${Math.round(ratio * 100)}% del presupuesto usado` : 'Cargá todos los precios para comparar con tu presupuesto';
+                        $('budgetBar').style.width = (priceCount === items.length ? Math.min(100, ratio * 100) : 0) + '%';
+                        $('budgetBar').style.background = ratio > 1 ? '#ed9d69' : 'var(--green)';
+                    } else {
+                        $('budgetText').textContent = priceCount ? 'Precios cargados · sin presupuesto definido' : 'Cargá precios para estimar el gasto';
+                        $('budgetBar').style.width = '0%';
+                    }
+                    $('listMeta').textContent = `Estimación para ${people} invitados · podés editar los precios`;
+                    const purchased = items.filter(i => i.purchased).length;
+                    $('progressText').textContent = `${purchased} de ${items.length} productos listos`;
+                    $('progressPct').textContent = (items.length ? Math.round(purchased / items.length * 100) : 0) + '%';
+                    $('progressBar').style.width = (items.length ? purchased / items.length * 100 : 0) + '%';
+                    $('items').innerHTML = items.length ? items.map(item => `
+      <div class="item ${item.purchased ? 'purchased' : ''}" data-item="${esc(item.key)}">
+        <input class="check" type="checkbox" data-check="${esc(item.key)}" aria-label="Marcar ${esc(item.name)} como comprado" ${item.purchased ? 'checked' : ''}>
+        <div class="item-main"><div class="itemline"><span class="itemname">${esc(item.name)}</span><span class="itemqty">${formatQty(item.quantity)} ${esc(item.unit)}</span>${item.adjusted ? `<span class="learned">AJUSTADO POR TU HISTORIAL</span>` : ''}</div><div class="itemdesc">${esc(item.desc)}</div></div>
+        <div class="pricebox"><label for="price-${esc(item.key)}">Precio por ${esc(item.priceUnit)} ($)</label><input class="priceinput" type="number" min="0" step="1" placeholder="Opcional" id="price-${esc(item.key)}" data-price="${esc(item.key)}" value="${state.prices[item.key] ?? ''}"><div class="itemcost">${item.price > 0 ? currency(item.cost) : 'Sin precio'}</div></div>
+      </div>`).join('') : '<div class="empty">Agregá al menos una persona para calcular cantidades.</div>';
+                    renderHistory();
+                }
+                function renderHistory() {
+                    const history = state.history.slice().reverse().slice(0, 4);
+                    $('historyCount').textContent = `${state.history.length} ${state.history.length === 1 ? 'experiencia guardada' : 'experiencias guardadas'}`;
+                    $('history').innerHTML = history.length ? history.map(record => {
+                        const date = new Date(record.date);
+                        const dateText = Number.isNaN(date.getTime()) ? 'Fecha guardada' : date.toLocaleDateString('es-AR', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric'
+                        });
+                        return `<div class="historyrow"><div><b>${esc(record.name || typeLabels[record.type] || 'Juntada')}</b><span>${esc(dateText)} · ${record.guests} invitados</span></div><span class="historybadge">${esc(typeLabels[record.type] || record.type)} · registrada</span></div>`;
+                    }
+                    ).join('') : '<div class="nohistory">Todavía no registraste ninguna juntada.</div>';
+                }
+                function openReport() {
+                    const settings = state.settings;
+                    const items = calculate(settings);
+                    $('feedbackList').innerHTML = items.map(item => `<div class="feedback-item"><div><b>${esc(item.name)} · ${formatQty(item.quantity)} ${esc(item.unit)}</b><small>¿Qué pasó con este producto?</small></div><select data-feedback="${esc(item.key)}" aria-label="Resultado para ${esc(item.name)}">${feedbackOptions.map( ([value,label]) => `<option value="${value}" ${value === 'just' ? 'selected' : ''}>${label}</option>`).join('')}</select></div>`).join('');
+                    $('reportModal').classList.add('open');
+                }
+                function closeReport() {
+                    $('reportModal').classList.remove('open');
+                }
+                function saveReport() {
+                    const settings = state.settings;
+                    const feedback = {};
+                    document.querySelectorAll('[data-feedback]').forEach(el => feedback[el.dataset.feedback] = el.value);
+                    state.history.push({
+                        id: Date.now(),
+                        date: new Date().toISOString(),
+                        name: settings.name,
+                        type: settings.type,
+                        guests: settings.adults + settings.children,
+                        duration: settings.duration,
+                        feedback
+                    });
+                    // Limitar el historial en el prototipo sin perder sus últimas experiencias.
+                    state.history = state.history.slice(-30);
+                    persist();
+                    closeReport();
+                    render();
+                    showToast('¡Experiencia guardada! La próxima lista tendrá en cuenta tus respuestas.');
+                }
+                function copyList() {
+                    const items = calculate(state.settings);
+                    const lines = [`Juntada 2.0 — ${state.settings.name || typeLabels[state.settings.type]}`, `${state.settings.adults + state.settings.children} invitados · ${typeLabels[state.settings.type]}`, '', ...items.map(item => `${item.purchased ? '[x]' : '[ ]'} ${item.name}: ${formatQty(item.quantity)} ${item.unit}${item.price > 0 ? ' — ' + currency(item.cost) : ''}`)];
+                    const text = lines.join('\n');
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(text).then( () => showToast('Lista copiada. Ya podés compartirla.')).catch( () => fallbackCopy(text));
+                    } else
+                        fallbackCopy(text);
+                }
+                function fallbackCopy(text) {
+                    const area = document.createElement('textarea');
+                    area.value = text;
+                    area.style.position = 'fixed';
+                    area.style.opacity = '0';
+                    document.body.appendChild(area);
+                    area.select();
+                    try {
+                        document.execCommand('copy');
+                        showToast('Lista copiada. Ya podés compartirla.');
+                    } catch (e) {
+                        showToast('No se pudo copiar automáticamente.');
+                    }
+                    area.remove();
+                }
+                $('eventForm').addEventListener('submit', event => {
+                    event.preventDefault();
+                    const settings = getSettings();
+                    if (settings.adults + settings.children < 1) {
+                        showToast('Agregá al menos un invitado para calcular.');
+                        return;
+                    }
+                    state.settings = settings;
+                    const items = calculate(settings);
+                    saveCurrentPlan(settings, items);
+                    render();
+                    showToast('Lista recalculada para tu juntada.');
+                    $('summaryName').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+                );
+                ['adults', 'children'].forEach(id => $(id).addEventListener('input', updateGuestCount));
+                $('items').addEventListener('change', event => {
+                    const key = event.target.dataset.check;
+                    const priceKey = event.target.dataset.price;
+                    if (key) {
+                        const item = state.plan?.items?.find(i => i.key === key);
+                        if (item)
+                            item.purchased = event.target.checked;
+                        persist();
+                        render();
+                        return;
+                    }
+                    if (priceKey) {
+                        const value = Math.max(0, Number(event.target.value) || 0);
+                        state.prices[priceKey] = value;
+                        persist();
+                        render();
+                    }
+                }
+                );
+                // Actualizar precios también al escribir, no solo al salir del campo.
+                $('items').addEventListener('input', event => {
+                    const key = event.target.dataset.price;
+                    if (!key)
+                        return;
+                    state.prices[key] = Math.max(0, Number(event.target.value) || 0);
+                    persist();
+                    const items = calculate(state.settings);
+                    const total = items.reduce( (sum, item) => sum + item.cost, 0);
+                    const count = items.filter(item => item.price > 0).length;
+                    $('totalCost').textContent = currency(total);
+                    $('totalNote').textContent = count === items.length ? 'Estimación con todos los precios cargados' : `${count} de ${items.length} productos con precio cargado`;
+                    $('statCost').textContent = count === items.length ? currency(total) : (count ? 'Parcial' : '—');
+                    const budget = Number(state.settings.budget) || 0;
+                    if (budget) {
+                        $('budgetText').textContent = count === items.length ? `${Math.round(total / budget * 100)}% del presupuesto usado` : 'Cargá todos los precios para comparar con tu presupuesto';
+                        $('budgetBar').style.width = (count === items.length ? Math.min(100, total / budget * 100) : 0) + '%';
+                        $('budgetBar').style.background = total > budget ? '#ed9d69' : 'var(--green)';
+                    }
+                    const card = event.target.closest('.pricebox');
+                    if (card) {
+                        const output = card.querySelector('.itemcost');
+                        const item = items.find(i => i.key === key);
+                        if (output && item)
+                            output.textContent = item.price > 0 ? currency(item.cost) : 'Sin precio';
+                    }
+                }
+                );
+                $('uncheckAll').addEventListener('click', () => {
+                    if (state.plan?.items)
+                        state.plan.items.forEach(i => i.purchased = false);
+                    persist();
+                    render();
+                    showToast('Se desmarcaron todos los productos.');
+                }
+                );
+                $('copyList').addEventListener('click', copyList);
+                $('reportBtn').addEventListener('click', openReport);
+                $('reportBtn2').addEventListener('click', openReport);
+                $('closeModal').addEventListener('click', closeReport);
+                $('cancelReport').addEventListener('click', closeReport);
+                $('saveReport').addEventListener('click', saveReport);
+                $('reportModal').addEventListener('click', event => {
+                    if (event.target === $('reportModal'))
+                        closeReport();
+                }
+                );
+                $('resetData').addEventListener('click', () => {
+                    if (!confirm('¿Borrar el historial, los precios y la lista guardada de este navegador?'))
+                        return;
+                    try {
+                        localStorage.removeItem(STORAGE_KEY);
+                    } catch (e) {}
+                    state = structuredClone(defaults);
+                    fillForm(state.settings);
+                    render();
+                    showToast('Se borraron los datos guardados.');
+                }
+                );
+                // Cargar plan anterior si existe; de lo contrario, construir uno inicial.
+                fillForm(state.settings);
+                if (!state.plan) {
+                    const items = calculate(state.settings);
+                    saveCurrentPlan(state.settings, items);
+                }
+                render();
+            }
+            )();
+        </script>
+    </body>
 </html>
