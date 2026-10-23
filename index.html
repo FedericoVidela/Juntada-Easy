@@ -19,7 +19,7 @@
 </header>
 <main class="wrap">
   <section class="hero">
-    <div><div class="eyebrow">Menos cálculo. Más encuentro.</div><h1>Que no falte nada.<br>Que no sobre <span>de más.</span></h1><p>Armá tu lista de compras según la juntada, calculá el gasto y contale a la app qué pasó. La próxima vez, las cantidades se ajustan a tu experiencia.</p></div>
+    <div><div class="eyebrow">Menos cálculo. Más encuentro.</div><h1>Que no falte nada.<br>Que no sobre <span>de más.</span></h1><p>Elegí entre 7 comidas para tu juntada, armá la lista de alimentos y productos, calculá el gasto y contale a la app qué pasó. La próxima vez, las cantidades se ajustan a tu experiencia.</p></div>
     <div class="local-note">🔒 <span><b>Privado por diseño</b><br>Los datos se guardan en este navegador.</span></div>
   </section>
   <div class="columns">
@@ -27,7 +27,15 @@
       <div class="panel-head"><div class="step">01</div><div><h2>Armemos el plan</h2><p>Contanos qué estás organizando.</p></div></div>
       <form id="eventForm" class="formbody">
         <div class="field"><label for="eventName">Nombre de la juntada <span class="help">Opcional</span></label><input class="control" id="eventName" maxlength="60" placeholder="Ej. Asado del sábado"></div>
-        <div class="field"><label for="eventType">¿Qué tipo de reunión es?</label><select class="control" id="eventType"><option value="asado">🔥 Asado</option><option value="pizza">🍕 Noche de pizza</option><option value="picada">🧀 Picada</option><option value="cumple">🎂 Cumpleaños</option></select></div>
+        <div class="field"><label for="eventType">¿Qué tipo de reunión es?</label><select class="control" id="eventType">
+          <option value="asado">🔥 Asado</option>
+          <option value="pizza">🍕 Pizzas</option>
+          <option value="empanadas">🥟 Empanadas</option>
+          <option value="pastas">🍝 Fideos con tuco</option>
+          <option value="pollo_disco">🍗 Pollo al disco</option>
+          <option value="osobuco_disco">🥘 Osobuco al disco</option>
+          <option value="picada">🧀 Picada</option>
+        </select></div>
         <div class="field"><label>¿Cuántas personas vienen?</label><div class="twocol"><div><label for="adults" style="font-size:10px;font-weight:600;color:var(--muted)">Adultos</label><input class="control" type="number" id="adults" min="0" max="300" value="8" required></div><div><label for="children" style="font-size:10px;font-weight:600;color:var(--muted)">Niños</label><input class="control" type="number" id="children" min="0" max="300" value="2" required></div></div><div class="counterline"><span>Total de invitados</span><b id="guestCount">10 personas</b></div></div>
         <div class="field"><label for="duration">¿Cuánto va a durar?</label><select class="control" id="duration"><option value="2">Unas 2 horas</option><option value="3">Unas 3 horas</option><option value="4" selected>Unas 4 horas</option><option value="5">Unas 5 horas</option><option value="6">6 horas o más</option></select></div>
         <div class="field"><label>¿Qué tan buen apetito tiene el grupo?</label><div class="segments"><label><input type="radio" name="appetite" value="light"> Tranqui</label><label><input type="radio" name="appetite" value="normal" checked> Normal</label><label><input type="radio" name="appetite" value="hungry"> ¡Con hambre!</label></div></div>
@@ -63,8 +71,18 @@
 (() => {
   const STORAGE_KEY = 'juntada20_v1';
   const $ = id => document.getElementById(id);
-  const typeLabels = {asado:'Asado',pizza:'Noche de pizza',picada:'Picada',cumple:'Cumpleaños'};
-  const typeEmoji = {asado:'🔥',pizza:'🍕',picada:'🧀',cumple:'🎂'};
+  const typeLabels = {
+    asado:'Asado',hamburguesada:'Hamburguesada',pizza:'Pizzas',
+    tacos:'Noche de tacos',pastas:'Fideos con tuco',picada:'Picada',
+    empanadas:'Empanadas',pollo_disco:'Pollo al disco',osobuco_disco:'Osobuco al disco',
+    cumple:'Cumpleaños',merienda:'Merienda',desayuno:'Desayuno o brunch',
+    vegetariana:'Comida vegetariana'
+  };
+  const typeEmoji = {
+    asado:'🔥',hamburguesada:'🍔',pizza:'🍕',tacos:'🌮',pastas:'🍝',
+    picada:'🧀',cumple:'🎂',merienda:'🧉',desayuno:'🥐',vegetariana:'🥗',
+    empanadas:'🥟',pollo_disco:'🍗',osobuco_disco:'🥘'
+  };
   const appetiteFactor = {light:0.84,normal:1,hungry:1.18};
   const appetiteLabels = {light:'apetito tranqui',normal:'apetito normal',hungry:'buen apetito'};
   const feedbackOptions = [
@@ -76,40 +94,181 @@
     asado: [
       {key:'meat',name:'Carne para asar',unit:'kg',priceUnit:'kg',desc:'Estimación de carne; depende del corte y los acompañamientos.',adult:.42,child:.23,food:true},
       {key:'chorizo',name:'Chorizos',unit:'unid.',priceUnit:'unidad',desc:'Aproximadamente uno por adulto, menos para niños.',adult:.8,child:.35,food:true,integer:true},
+      {key:'morcilla',name:'Morcillas',unit:'unid.',priceUnit:'unidad',desc:'Opcional; ajustá según los gustos del grupo.',adult:.30,child:.12,food:true,integer:true},
+      {key:'provoleta',name:'Provoletas',unit:'unid.',priceUnit:'unidad',desc:'Una porción para compartir; es opcional.',adult:.18,child:.10,food:true,integer:true},
       {key:'bread',name:'Pan',unit:'kg',priceUnit:'kg',desc:'Para acompañar la comida.',adult:.10,child:.07,food:true},
       {key:'salad',name:'Ensaladas y verduras',unit:'kg',priceUnit:'kg',desc:'Acompañamientos variados.',adult:.18,child:.12,food:true},
+      {key:'chimichurri',name:'Chimichurri y salsas',unit:'frasco',priceUnit:'frasco',desc:'Cantidad orientativa; podés ajustar si preparás salsas caseras.',adult:.10,child:.05,food:false,integer:true},
+      {key:'charcoal',name:'Carbón o leña',unit:'kg',priceUnit:'kg',desc:'Depende de la parrilla, el fuego y la duración.',adult:.30,child:.14,food:false},
       {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas; ajustá según lo que tome tu grupo.',adult:.85,child:.60,food:false,drink:true},
       {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'La cantidad varía según el clima y cómo enfríes las bebidas.',adult:.20,child:.12,food:false},
-      {key:'cake',name:'Postre o algo dulce',unit:'kg',priceUnit:'kg',desc:'Una porción pequeña por persona.',adult:.12,child:.10,food:true}
+      {key:'cake',name:'Postre o algo dulce',unit:'kg',priceUnit:'kg',desc:'Una porción pequeña por persona.',adult:.12,child:.10,food:true},
+      {key:'napkins',name:'Servilletas',unit:'unid.',priceUnit:'paquete',desc:'Paquetes de servilletas para la mesa.',adult:.10,child:.08,food:false,integer:true}
+    ],
+    hamburguesada: [
+      {key:'burger_patties',name:'Medallones para hamburguesa',unit:'unid.',priceUnit:'unidad',desc:'Uno por persona y algo extra para quienes comen más.',adult:1.25,child:.8,food:true,integer:true},
+      {key:'burger_buns',name:'Pan de hamburguesa',unit:'unid.',priceUnit:'unidad',desc:'Elegí panes del tamaño adecuado para los medallones.',adult:1.25,child:.8,food:true,integer:true},
+      {key:'burger_cheese',name:'Fetas de queso',unit:'unid.',priceUnit:'feta',desc:'Opcional; una o dos fetas por hamburguesa.',adult:1.5,child:1,food:true,integer:true},
+      {key:'burger_veg',name:'Lechuga y tomate',unit:'kg',priceUnit:'kg',desc:'Verduras frescas para armar las hamburguesas.',adult:.09,child:.06,food:true},
+      {key:'fries',name:'Papas fritas',unit:'kg',priceUnit:'kg',desc:'Acompañamiento opcional.',adult:.16,child:.10,food:true},
+      {key:'condiments',name:'Kétchup, mayonesa y mostaza',unit:'frasco',priceUnit:'frasco',desc:'Salsas para acompañar; ajustá según lo que ya tengas.',adult:.10,child:.06,food:false,integer:true},
+      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.80,child:.55,food:false,drink:true},
+      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.18,child:.12,food:false},
+      {key:'napkins',name:'Servilletas',unit:'unid.',priceUnit:'paquete',desc:'Para comer sin ensuciarse.',adult:.10,child:.08,food:false,integer:true},
+      {key:'trashbags',name:'Bolsas de residuos',unit:'unid.',priceUnit:'unidad',desc:'Para juntar los residuos al terminar.',adult:.08,child:.08,food:false,integer:true}
     ],
     pizza: [
-      {key:'pizza',name:'Pizzas grandes',unit:'unid.',priceUnit:'unidad',desc:'Estimación en pizzas de unas 8 porciones.',adult:.38,child:.24,food:true,integer:true},
-      {key:'snacks',name:'Snacks para picar',unit:'kg',priceUnit:'kg',desc:'Papas, palitos u otros snacks.',adult:.07,child:.045,food:true},
+      {key:'pizza',name:'Pizzas grandes',unit:'unid.',priceUnit:'unidad',desc:'Estimación para pizzas de unas 8 porciones; ajustá si habrá otros platos.',adult:.38,child:.24,food:true,integer:true},
+      {key:'faina',name:'Fainá',unit:'porciones',priceUnit:'porción',desc:'Opcional para acompañar las porciones de pizza.',adult:.25,child:.15,food:true,integer:true},
+      {key:'snacks',name:'Snacks para picar',unit:'kg',priceUnit:'kg',desc:'Papas, palitos u otros snacks para antes de comer.',adult:.06,child:.04,food:true},
+      {key:'pizza_salad',name:'Ensalada para acompañar',unit:'kg',priceUnit:'kg',desc:'Opcional para sumar una alternativa fresca.',adult:.10,child:.07,food:true},
+      {key:'olives',name:'Aceitunas y toppings extra',unit:'kg',priceUnit:'kg',desc:'Aceitunas, morrones u otros ingredientes extra.',adult:.025,child:.015,food:true},
+      {key:'pizza_condiments',name:'Orégano, ají molido y salsas',unit:'paquetes',priceUnit:'paquete',desc:'Condimentos para la mesa; descontá lo que ya tengas.',adult:.10,child:.06,food:false,integer:true},
       {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
-      {key:'dessert',name:'Postre',unit:'kg',priceUnit:'kg',desc:'Helado, postre o algo dulce.',adult:.12,child:.10,food:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Ajustá según clima y refrigeración.',adult:.16,child:.10,food:false}
+      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Ajustá según clima y refrigeración.',adult:.16,child:.10,food:false},
+      {key:'dessert',name:'Postre o helado',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.12,child:.10,food:true},
+      {key:'cups',name:'Vasos descartables',unit:'paquetes',priceUnit:'paquete',desc:'Estimación de un paquete cada 10 personas.',adult:.10,child:.10,food:false,integer:true},
+      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Para la mesa y la comida.',adult:.10,child:.08,food:false,integer:true},
+      {key:'trashbags',name:'Bolsas de residuos',unit:'unid.',priceUnit:'unidad',desc:'Para juntar los residuos al terminar.',adult:.08,child:.08,food:false,integer:true}
+    ],
+    tacos: [
+      {key:'tortillas',name:'Tortillas para tacos',unit:'unid.',priceUnit:'unidad',desc:'Calculá unas 2 a 3 por adulto como referencia.',adult:2.5,child:1.7,food:true,integer:true},
+      {key:'taco_protein',name:'Carne o proteína para el relleno',unit:'kg',priceUnit:'kg',desc:'Carne, pollo o una alternativa vegetal.',adult:.17,child:.10,food:true},
+      {key:'taco_beans',name:'Porotos o frijoles',unit:'kg',priceUnit:'kg',desc:'Acompañamiento o relleno adicional.',adult:.06,child:.04,food:true},
+      {key:'taco_cheese',name:'Queso rallado',unit:'kg',priceUnit:'kg',desc:'Para agregar al gusto.',adult:.04,child:.025,food:true},
+      {key:'taco_veg',name:'Tomate, cebolla y lechuga',unit:'kg',priceUnit:'kg',desc:'Verduras para armar los tacos.',adult:.10,child:.07,food:true},
+      {key:'taco_salsa',name:'Salsas',unit:'frasco',priceUnit:'frasco',desc:'Salsa suave o picante, según los gustos.',adult:.10,child:.05,food:false,integer:true},
+      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
+      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.16,child:.10,food:false}
+    ],
+    pastas: [
+      {key:'dry_pasta',name:'Fideos secos',unit:'kg',priceUnit:'kg',desc:'Fideos para plato principal; ajustá según los acompañamientos.',adult:.12,child:.08,food:true},
+      {key:'tuco_tomato',name:'Puré o salsa de tomate',unit:'kg',priceUnit:'kg',desc:'Base del tuco.',adult:.12,child:.08,food:true},
+      {key:'tuco_meat',name:'Carne picada para el tuco',unit:'kg',priceUnit:'kg',desc:'Opcional; podés preparar un tuco sin carne.',adult:.08,child:.05,food:true},
+      {key:'tuco_onion',name:'Cebolla',unit:'kg',priceUnit:'kg',desc:'Para la salsa.',adult:.035,child:.025,food:true},
+      {key:'tuco_carrot',name:'Zanahoria',unit:'kg',priceUnit:'kg',desc:'Opcional para darle cuerpo al tuco.',adult:.025,child:.015,food:true},
+      {key:'tuco_garlic',name:'Ajo y condimentos',unit:'paquetes',priceUnit:'paquete',desc:'Ajo, laurel, pimentón, sal y otros condimentos.',adult:.10,child:.06,food:false,integer:true},
+      {key:'grated_cheese',name:'Queso rallado',unit:'kg',priceUnit:'kg',desc:'Para servir en la mesa.',adult:.02,child:.015,food:true},
+      {key:'pasta_bread',name:'Pan',unit:'kg',priceUnit:'kg',desc:'Opcional para acompañar.',adult:.07,child:.04,food:true},
+      {key:'pasta_salad',name:'Ensalada',unit:'kg',priceUnit:'kg',desc:'Acompañamiento fresco opcional.',adult:.10,child:.07,food:true},
+      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.70,child:.50,food:false,drink:true},
+      {key:'dessert',name:'Postre o fruta',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.10,child:.10,food:true},
+      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Estimación de paquetes para la mesa.',adult:.10,child:.08,food:false,integer:true}
+    ],
+    empanadas: [
+      {key:'emp_meat',name:'Empanadas de carne',unit:'unid.',priceUnit:'unidad',desc:'Sabor principal; horneadas o fritas.',adult:2,child:1,food:true,integer:true},
+      {key:'emp_hamcheese',name:'Empanadas de jamón y queso',unit:'unid.',priceUnit:'unidad',desc:'Para ofrecer una segunda variedad.',adult:.75,child:.60,food:true,integer:true},
+      {key:'emp_chicken',name:'Empanadas de pollo o verdura',unit:'unid.',priceUnit:'unidad',desc:'Tercera variedad opcional; elegí según tu grupo.',adult:.50,child:.40,food:true,integer:true},
+      {key:'emp_dips',name:'Salsa criolla o chimichurri',unit:'frascos',priceUnit:'frasco',desc:'Opcional para acompañar.',adult:.10,child:.05,food:false,integer:true},
+      {key:'emp_salad',name:'Ensalada fresca',unit:'kg',priceUnit:'kg',desc:'Tomate, lechuga y otros vegetales.',adult:.10,child:.07,food:true},
+      {key:'emp_snacks',name:'Snacks para picar',unit:'kg',priceUnit:'kg',desc:'Opcional para esperar la comida.',adult:.04,child:.03,food:true},
+      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
+      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.16,child:.10,food:false},
+      {key:'dessert',name:'Postre o helado',unit:'kg',priceUnit:'kg',desc:'Opcional para terminar.',adult:.12,child:.10,food:true},
+      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Estimación de paquetes para la mesa.',adult:.10,child:.08,food:false,integer:true},
+      {key:'trashbags',name:'Bolsas de residuos',unit:'unid.',priceUnit:'unidad',desc:'Para juntar los residuos.',adult:.08,child:.08,food:false,integer:true}
+    ],
+    pollo_disco: [
+      {key:'disco_chicken',name:'Pollo trozado',unit:'kg',priceUnit:'kg',desc:'Pieza principal; puede ser pollo entero trozado.',adult:.40,child:.25,food:true},
+      {key:'disco_potatoes',name:'Papas',unit:'kg',priceUnit:'kg',desc:'Para cocinar junto con el pollo.',adult:.18,child:.12,food:true},
+      {key:'disco_onions',name:'Cebollas',unit:'kg',priceUnit:'kg',desc:'Base del sabor del disco.',adult:.06,child:.04,food:true},
+      {key:'disco_peppers',name:'Morrón',unit:'kg',priceUnit:'kg',desc:'Rojo o verde, según preferencia.',adult:.05,child:.03,food:true},
+      {key:'disco_carrots',name:'Zanahorias',unit:'kg',priceUnit:'kg',desc:'Para sumar verduras al disco.',adult:.04,child:.025,food:true},
+      {key:'disco_tomato',name:'Tomate o puré de tomate',unit:'kg',priceUnit:'kg',desc:'Para la salsa de cocción.',adult:.06,child:.04,food:true},
+      {key:'disco_liquid',name:'Caldo o vino para cocinar',unit:'L',priceUnit:'litro',desc:'Elegí caldo, vino o una combinación según tu receta.',adult:.10,child:.05,food:false},
+      {key:'disco_seasoning',name:'Ajo y condimentos',unit:'paquetes',priceUnit:'paquete',desc:'Ajo, pimentón, orégano, sal y pimienta.',adult:.10,child:.06,food:false,integer:true},
+      {key:'disco_bread',name:'Pan',unit:'kg',priceUnit:'kg',desc:'Opcional para acompañar.',adult:.07,child:.05,food:true},
+      {key:'disco_salad',name:'Ensalada',unit:'kg',priceUnit:'kg',desc:'Acompañamiento fresco opcional.',adult:.10,child:.07,food:true},
+      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
+      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.15,child:.10,food:false},
+      {key:'dessert',name:'Postre o fruta',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.10,child:.10,food:true},
+      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Para la mesa.',adult:.10,child:.08,food:false,integer:true}
+    ],
+    osobuco_disco: [
+      {key:'osso_meat',name:'Osobuco',unit:'kg',priceUnit:'kg',desc:'Corte principal; la cantidad depende del hueso y del tamaño de las porciones.',adult:.45,child:.28,food:true},
+      {key:'osso_potatoes',name:'Papas',unit:'kg',priceUnit:'kg',desc:'Para cocinar junto con el osobuco.',adult:.16,child:.10,food:true},
+      {key:'osso_onions',name:'Cebollas',unit:'kg',priceUnit:'kg',desc:'Base de la preparación.',adult:.06,child:.04,food:true},
+      {key:'osso_carrots',name:'Zanahorias',unit:'kg',priceUnit:'kg',desc:'Para sumar sabor y verduras.',adult:.05,child:.03,food:true},
+      {key:'osso_peppers',name:'Morrón',unit:'kg',priceUnit:'kg',desc:'Rojo o verde.',adult:.05,child:.03,food:true},
+      {key:'osso_tomato',name:'Tomate o puré de tomate',unit:'kg',priceUnit:'kg',desc:'Para la salsa.',adult:.10,child:.06,food:true},
+      {key:'osso_liquid',name:'Caldo o vino para cocinar',unit:'L',priceUnit:'litro',desc:'Para la cocción lenta; elegí según tu receta.',adult:.10,child:.05,food:false},
+      {key:'osso_seasoning',name:'Ajo y condimentos',unit:'paquetes',priceUnit:'paquete',desc:'Ajo, laurel, pimentón, sal y pimienta.',adult:.10,child:.06,food:false,integer:true},
+      {key:'osso_polenta',name:'Polenta o arroz seco',unit:'kg',priceUnit:'kg',desc:'Guarnición opcional para acompañar la salsa.',adult:.09,child:.06,food:true},
+      {key:'osso_bread',name:'Pan',unit:'kg',priceUnit:'kg',desc:'Opcional para acompañar.',adult:.06,child:.04,food:true},
+      {key:'osso_salad',name:'Ensalada',unit:'kg',priceUnit:'kg',desc:'Acompañamiento fresco opcional.',adult:.08,child:.05,food:true},
+      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
+      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.15,child:.10,food:false},
+      {key:'dessert',name:'Postre o fruta',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.10,child:.10,food:true},
+      {key:'napkins',name:'Servilletas',unit:'paquetes',priceUnit:'paquete',desc:'Para la mesa.',adult:.10,child:.08,food:false,integer:true}
     ],
     picada: [
       {key:'coldcuts',name:'Fiambres',unit:'kg',priceUnit:'kg',desc:'Jamón, salame y otros fiambres.',adult:.10,child:.06,food:true},
       {key:'cheese',name:'Quesos',unit:'kg',priceUnit:'kg',desc:'Variedad de quesos para compartir.',adult:.09,child:.05,food:true},
       {key:'bread',name:'Pan y grisines',unit:'kg',priceUnit:'kg',desc:'Pan, grisines o tostadas.',adult:.14,child:.09,food:true},
-      {key:'snacks',name:'Snacks y extras',unit:'kg',priceUnit:'kg',desc:'Papas, aceitunas y otros acompañamientos.',adult:.06,child:.04,food:true},
+      {key:'snacks',name:'Snacks y extras',unit:'kg',priceUnit:'kg',desc:'Papas y otros acompañamientos.',adult:.06,child:.04,food:true},
+      {key:'olives',name:'Aceitunas y encurtidos',unit:'kg',priceUnit:'kg',desc:'Pepinitos, aceitunas y otros encurtidos.',adult:.035,child:.02,food:true},
+      {key:'spreads',name:'Dips y untables',unit:'kg',priceUnit:'kg',desc:'Hummus, queso untable y salsas.',adult:.045,child:.025,food:true},
+      {key:'nuts',name:'Frutos secos',unit:'kg',priceUnit:'kg',desc:'Opcional; revisá alergias del grupo.',adult:.025,child:.015,food:true},
       {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.70,child:.50,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.15,child:.10,food:false}
+      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.15,child:.10,food:false},
+      {key:'napkins',name:'Servilletas',unit:'unid.',priceUnit:'paquete',desc:'Para compartir la picada.',adult:.10,child:.08,food:false,integer:true}
     ],
     cumple: [
       {key:'pizza',name:'Pizzas grandes',unit:'unid.',priceUnit:'unidad',desc:'Una opción fácil para compartir; ajustá si habrá otro plato.',adult:.30,child:.22,food:true,integer:true},
       {key:'snacks',name:'Snacks para picar',unit:'kg',priceUnit:'kg',desc:'Papas, palitos y otros snacks.',adult:.06,child:.04,food:true},
       {key:'cake',name:'Torta',unit:'kg',priceUnit:'kg',desc:'Porciones de alrededor de 120 g como referencia.',adult:.12,child:.10,food:true},
+      {key:'birthday_candles',name:'Velitas para la torta',unit:'unid.',priceUnit:'paquete',desc:'Estimación de un paquete cada 10 personas aproximadamente.',adult:.10,child:.10,food:false,integer:true},
       {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.80,child:.55,food:false,drink:true},
-      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.18,child:.12,food:false}
+      {key:'ice',name:'Hielo',unit:'kg',priceUnit:'kg',desc:'Según clima y refrigeración.',adult:.18,child:.12,food:false},
+      {key:'plates',name:'Platos descartables',unit:'unid.',priceUnit:'paquete',desc:'Uno por invitado como base.',adult:.10,child:.10,food:false,integer:true},
+      {key:'cups',name:'Vasos descartables',unit:'unid.',priceUnit:'paquete',desc:'Calculá unos cuantos por persona.',adult:.20,child:.15,food:false,integer:true},
+      {key:'napkins',name:'Servilletas',unit:'unid.',priceUnit:'paquete',desc:'Paquetes para la mesa.',adult:.10,child:.08,food:false,integer:true},
+      {key:'trashbags',name:'Bolsas de residuos',unit:'unid.',priceUnit:'unidad',desc:'Para dejar el espacio limpio al terminar.',adult:.08,child:.08,food:false,integer:true}
+    ],
+    merienda: [
+      {key:'facturas',name:'Facturas o medialunas',unit:'unid.',priceUnit:'unidad',desc:'Estimación de 1 a 3 por persona según el apetito.',adult:2,child:1.5,food:true,integer:true},
+      {key:'merienda_cake',name:'Pastafrola o budín',unit:'kg',priceUnit:'kg',desc:'Algo dulce para compartir.',adult:.10,child:.08,food:true},
+      {key:'sandwiches',name:'Sándwiches',unit:'unid.',priceUnit:'unidad',desc:'Opcionales si la merienda también reemplaza una comida.',adult:.7,child:.5,food:true,integer:true},
+      {key:'coffee',name:'Café o té preparado',unit:'L',priceUnit:'litro',desc:'Puede ser menos si la mayoría toma mate.',adult:.20,child:.08,food:false,drink:true},
+      {key:'milk',name:'Leche',unit:'L',priceUnit:'litro',desc:'Para mate cocido, té o café con leche.',adult:.10,child:.18,food:false,drink:true},
+      {key:'juice',name:'Jugo',unit:'L',priceUnit:'litro',desc:'Otra opción de bebida sin alcohol.',adult:.25,child:.22,food:false,drink:true},
+      {key:'snacks',name:'Snacks salados',unit:'kg',priceUnit:'kg',desc:'Opcional para combinar con lo dulce.',adult:.04,child:.035,food:true}
+    ],
+    desayuno: [
+      {key:'breakfast_pastries',name:'Medialunas o panificados',unit:'unid.',priceUnit:'unidad',desc:'Piezas de panadería para acompañar el desayuno.',adult:2,child:1.5,food:true,integer:true},
+      {key:'toast_bread',name:'Pan para tostadas',unit:'kg',priceUnit:'kg',desc:'Pan lactal o pan para tostar.',adult:.08,child:.05,food:true},
+      {key:'breakfast_spread',name:'Manteca y mermelada',unit:'kg',priceUnit:'kg',desc:'Untables para las tostadas.',adult:.03,child:.025,food:true},
+      {key:'eggs',name:'Huevos',unit:'unid.',priceUnit:'unidad',desc:'Opcionales para un desayuno más completo.',adult:1,child:.6,food:true,integer:true},
+      {key:'fruit',name:'Fruta fresca',unit:'kg',priceUnit:'kg',desc:'Fruta de estación cortada o entera.',adult:.12,child:.10,food:true},
+      {key:'coffee',name:'Café o té preparado',unit:'L',priceUnit:'litro',desc:'Estimación para tazas pequeñas.',adult:.22,child:.08,food:false,drink:true},
+      {key:'milk',name:'Leche',unit:'L',priceUnit:'litro',desc:'Para café, té o chocolatada.',adult:.10,child:.18,food:false,drink:true},
+      {key:'juice',name:'Jugo',unit:'L',priceUnit:'litro',desc:'Bebida fría para acompañar.',adult:.20,child:.20,food:false,drink:true},
+      {key:'yogurt',name:'Yogur',unit:'unid.',priceUnit:'unidad',desc:'Opcional; un pote por persona que lo consuma.',adult:.5,child:.7,food:true,integer:true}
+    ],
+    vegetariana: [
+      {key:'veggie_burgers',name:'Medallones vegetarianos',unit:'unid.',priceUnit:'unidad',desc:'Hamburguesas vegetales o de legumbres.',adult:1.2,child:.8,food:true,integer:true},
+      {key:'veggie_grains',name:'Legumbres cocidas',unit:'kg',priceUnit:'kg',desc:'Garbanzos, lentejas o porotos como base del menú.',adult:.10,child:.07,food:true},
+      {key:'veggie_veg',name:'Verduras para cocinar',unit:'kg',priceUnit:'kg',desc:'Zapallito, berenjena, morrón, cebolla u otras.',adult:.18,child:.12,food:true},
+      {key:'veggie_salad',name:'Ensaladas',unit:'kg',priceUnit:'kg',desc:'Hojas verdes, tomate y otros vegetales frescos.',adult:.12,child:.08,food:true},
+      {key:'veggie_bread',name:'Pan o wraps',unit:'unid.',priceUnit:'unidad',desc:'Para acompañar o preparar sándwiches y wraps.',adult:1,child:.7,food:true,integer:true},
+      {key:'veggie_cheese',name:'Queso o alternativa vegetal',unit:'kg',priceUnit:'kg',desc:'Opcional según el menú y las preferencias.',adult:.05,child:.035,food:true},
+      {key:'hummus',name:'Hummus o dip de legumbres',unit:'kg',priceUnit:'kg',desc:'Para picar o acompañar las verduras.',adult:.05,child:.03,food:true},
+      {key:'drinks',name:'Bebidas sin alcohol',unit:'L',priceUnit:'litro',desc:'Agua y gaseosas.',adult:.75,child:.50,food:false,drink:true},
+      {key:'fruit',name:'Fruta o postre',unit:'kg',priceUnit:'kg',desc:'Algo dulce para terminar.',adult:.10,child:.10,food:true}
     ]
   };
   const defaults = {
     settings:{name:'',type:'asado',adults:8,children:2,duration:4,appetite:'normal',budget:''},
     plan:null, history:[], prices:{}
   };
+  const selectableTypes = ['asado','pizza','empanadas','pastas','pollo_disco','osobuco_disco','picada'];
   let state = loadState();
+  // Si había una categoría antigua guardada, volver a Asado sin borrar el historial ni los precios.
+  if (!selectableTypes.includes(state.settings.type)) {
+    state.settings.type = 'asado';
+    state.settings.name = '';
+    state.plan = null;
+  }
   let toastTimer;
 
   function loadState(){
